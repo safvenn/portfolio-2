@@ -11,7 +11,6 @@ import {
   Code2, LineChart, Calendar, Layers
 } from 'lucide-react';
 import Resume from './components/Resume';
-import HeroSequence from './components/HeroSequence';
 
 /* =============================================
    SMOOTH FADE-IN WRAPPER
@@ -261,24 +260,10 @@ const Navbar = ({ isDark, toggleTheme }) => {
               {link.name}
             </motion.a>
           ))}
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            <motion.div
-              key={isDark ? 'sun' : 'moon'}
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-            </motion.div>
-          </button>
         </motion.div>
 
         {/* Mobile Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <button className="theme-toggle nav-mobile-toggle-theme" onClick={toggleTheme} aria-label="Toggle theme" style={{ display: 'none' }}>
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
           <motion.button
             className="nav-mobile-toggle"
             whileTap={{ scale: 0.9 }}
@@ -437,20 +422,14 @@ const Hero = () => {
   }, [roles.length]);
 
   return (
-    <section className="hero-section" id="hero" style={{ height: '600vh', position: 'relative' }}>
-      <div style={{ position: 'sticky', top: 0, height: '100vh', width: '100%', overflow: 'hidden' }}>
-        <div className="animated-grid" />
-        <div className="hero-glow hero-glow-1" />
-        <div className="hero-glow hero-glow-2" />
-        <div className="hero-glow hero-glow-3" />
+    <section className="hero-section" id="hero">
+      <div className="animated-grid" />
+      <div className="hero-glow hero-glow-1" />
+      <div className="hero-glow hero-glow-2" />
+      <div className="hero-glow hero-glow-3" />
 
-        {/* Background Image Sequence */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, opacity: 0.6 }}>
-          <HeroSequence />
-        </div>
-
-        <div className="container" style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="hero-content" style={{ display: 'block' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+        <div className="hero-content">
           {/* Left: Text */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -572,12 +551,12 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Scroll indicator - positioned at bottom of sticky viewport */}
+        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}
+          style={{ textAlign: 'center', marginTop: '2rem' }}
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -609,7 +588,7 @@ const About = () => {
       <div className="container">
         <SectionHeader label="About Me" title="Who I Am" subtitle="A detail-oriented aspiring Data Analyst passionate about turning data into decisions." />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '3rem', alignItems: 'start', marginBottom: '3rem' }}>
+        <div className="about-grid">
           {/* Left: Image */}
           <FadeIn direction="left">
             <div className="glass-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
@@ -1276,27 +1255,17 @@ const App = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadPct, setLoadPct] = useState(0);
-  const [isDark, setIsDark] = useState(() => {
-    try { return localStorage.getItem('portfolio-theme') === 'dark'; } catch { return false; }
-  });
+  const [isDark] = useState(true);
 
-  const toggleTheme = useCallback(() => {
-    setIsDark(prev => {
-      const next = !prev;
-      try { localStorage.setItem('portfolio-theme', next ? 'dark' : 'light'); } catch {}
-      return next;
-    });
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', 'dark');
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
-
-  useEffect(() => {
     const interval = setInterval(() => {
-      setLoadPct(p => { if (p >= 100) { clearInterval(interval); return 100; } return Math.min(p + Math.floor(Math.random() * 14) + 5, 100); });
-    }, 100);
-    const timer = setTimeout(() => setIsLoading(false), 1800);
+      setLoadPct(p => { if (p >= 100) { clearInterval(interval); return 100; } return Math.min(p + Math.floor(Math.random() * 30) + 15, 100); });
+    }, 30);
+    const timer = setTimeout(() => setIsLoading(false), 300);
 
     const handleOpenResume = () => setIsResumeOpen(true);
     window.addEventListener('open-resume', handleOpenResume);
@@ -1341,7 +1310,7 @@ const App = () => {
           >
             <ScrollProgress />
             <MagneticCursor />
-            <Navbar isDark={isDark} toggleTheme={toggleTheme} />
+            <Navbar isDark={isDark} />
             <BackToTop />
 
             <main>
