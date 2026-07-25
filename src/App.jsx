@@ -1136,17 +1136,22 @@ const ToolsMarquee = () => {
 
   const tools = useMemo(() => [
     { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'FastAPI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
+    { name: 'PyTorch', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg' },
+    { name: 'Scikit-Learn', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg' },
+    { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+    { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'Firebase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
+    { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+    { name: 'Flutter', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg' },
     { name: 'Pandas', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
     { name: 'NumPy', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg' },
     { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
     { name: 'Power BI', icon: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg' },
     { name: 'Excel', icon: 'https://img.icons8.com/color/96/microsoft-excel-2019.png' },
-    { name: 'Matplotlib', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg' },
-    { name: 'Jupyter', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg' },
-    { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+    { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
+    { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
     { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-    { name: 'Kaggle', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kaggle/kaggle-original.svg' },
-    { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
   ], []);
 
   const doubled = [...tools, ...tools];
@@ -1189,53 +1194,55 @@ const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
 
   const filters = useMemo(() => [
-    { label: 'All', value: 'all' },
-    { label: 'Python', value: 'python' },
+    { label: 'All Projects', value: 'all' },
+    { label: 'Full-Stack & Web', value: 'fullstack' },
+    { label: 'AI & ML', value: 'ai' },
+    { label: 'Python & Data', value: 'python' },
     { label: 'Power BI', value: 'powerbi' },
-    { label: 'SQL', value: 'sql' },
   ], []);
 
   const projects = useMemo(() => [
     {
-      title: 'Petrol Station Analytics — End-to-End Python → Power BI',
+      title: 'Budget Buddy — Room Expense & Bill Splitter App',
+      tag: '★ PRIORITY #1 · React · TypeScript · Firebase · Live App',
+      description: 'Full-stack room management and expense-tracking application. Features real-time balances, equal/percentage/custom split algorithms, friend settlements, interactive expense analytics dashboard, and automated debt minimization math.',
+      tools: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS', 'Vite', 'Realtime DB'],
+      link: 'https://github.com/Rinshad007/room',
+      liveUrl: 'http://budget-buddy4.vercel.app/',
+      accent: '#FF634A',
+      highlights: ['🚀 Live Web App', '⚡ Realtime DB', '📊 Debt Settlement Engine'],
+      categories: ['fullstack', 'all'],
+    },
+    {
+      title: 'Sales Analytics & AI Revenue Forecasting System',
+      tag: 'Python · FastAPI · Gemini AI · Scikit-Learn',
+      description: 'Production-grade full-stack web application for uploading sales order datasets, analyzing performance metrics, generating AI-powered business insights via Google Gemini AI, and forecasting future revenue using Linear Regression models.',
+      tools: ['Python', 'FastAPI', 'React', 'Google Gemini AI', 'Scikit-Learn', 'Pandas'],
+      link: 'https://github.com/safvenn/SALES-ANALETCIS',
+      accent: '#7C3AED',
+      highlights: ['🤖 Gemini AI Insights', '📈 Linear Regression Forecast', '⚡ FastAPI Backend'],
+      categories: ['ai', 'python', 'fullstack'],
+    },
+    {
+      title: 'Petrol Station Analytics — End-to-End Pipeline',
       tag: 'Python · Power BI · Full Pipeline',
       description: 'Complete end-to-end analytics project transforming messy petrol station datasets into business insights. Processed 150,000+ transactions covering ₹2.15B revenue and 22M+ liters. Built Operations and HR dashboards in Power BI.',
       tools: ['Python', 'Pandas', 'NumPy', 'Power BI', 'Matplotlib', 'Seaborn'],
       link: 'https://github.com/safvenn/petrol-pumb-analysis',
       accent: '#F59E0B',
-      highlights: ['150K+ Transactions', '₹2.15B Revenue', '2 Dashboards'],
+      highlights: ['150K+ Transactions', '₹2.15B Revenue', '2 Power BI Dashboards'],
       categories: ['python', 'powerbi'],
     },
     {
       title: 'Hospital Doctor Utilization & Patient Cost Analysis',
-      tag: 'Python · SQL · Full Pipeline',
-      description: 'Integrated 4 relational datasets into a unified analytical model. Built multi-table data pipeline, cleaned healthcare datasets, and executed 10+ SQL queries to extract KPIs.',
-      tools: ['Python', 'Pandas', 'MySQL', 'SQLAlchemy', 'Matplotlib', 'Seaborn', 'Excel'],
+      tag: 'Python · SQL · Multi-table Analytics',
+      description: 'Integrated 4 relational datasets into a unified analytical model. Built multi-table data pipeline, cleaned healthcare datasets, and executed 10+ SQL queries to extract KPIs and cost segments.',
+      tools: ['Python', 'Pandas', 'MySQL', 'SQLAlchemy', 'Matplotlib'],
       link: 'https://github.com/safvenn/hospital_Multi_table_analysis',
       accent: '#3B82F6',
-      highlights: ['4 Datasets Integrated', '10+ SQL Queries', '3 Segments'],
-      categories: ['python', 'sql'],
+      highlights: ['4 Datasets Integrated', '10+ SQL Queries', '3 Cost Segments'],
+      categories: ['python'],
     },
-    {
-      title: 'Netflix Dataset — Data Cleaning & Content Segmentation',
-      tag: 'Python · Power BI · EDA',
-      description: 'Cleaned 8,000+ dataset records by removing nulls, standardizing text, and fixing date formats. Performed genre distribution and actor frequency analysis.',
-      tools: ['Python', 'Pandas', 'Excel', 'Power BI'],
-      link: 'https://github.com/safvenn',
-      accent: '#06B6D4',
-      highlights: ['8K+ Records', 'Top 20 Actors', 'Power BI Dashboard'],
-      categories: ['python', 'powerbi'],
-    },
-    {
-      title: 'Sales Performance Dashboard',
-      tag: 'Power BI · Excel · KPI',
-      description: 'Interactive sales dashboard tracking 6 KPIs with monthly sales analysis, top-product reports, automated Excel summaries, and drill-through analysis.',
-      tools: ['Power BI', 'Excel'],
-      link: 'https://github.com/safvenn',
-      accent: '#8B5CF6',
-      highlights: ['6 KPIs Tracked', 'Interactive Slicers', 'Drill-through'],
-      categories: ['powerbi'],
-    }
   ], []);
 
   const filtered = activeFilter === 'all'
@@ -1300,14 +1307,27 @@ const Projects = () => {
                       ))}
                     </div>
 
-                    <motion.a
-                      href={project.link} target="_blank" rel="noopener noreferrer"
-                      className="btn btn-outline"
-                      whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                      style={{ padding: '0.45rem 1rem', fontSize: '0.76rem', color: project.accent, borderColor: `${project.accent}30`, width: 'auto' }}
-                    >
-                      <Github size={14} /> View on GitHub <ExternalLink size={12} />
-                    </motion.a>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem' }}>
+                      <motion.a
+                        href={project.link} target="_blank" rel="noopener noreferrer"
+                        className="btn btn-outline"
+                        whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                        style={{ padding: '0.5rem 1.1rem', fontSize: '0.78rem', color: project.accent, borderColor: `${project.accent}40`, width: 'auto' }}
+                      >
+                        <Github size={15} /> Source Code <ExternalLink size={12} />
+                      </motion.a>
+
+                      {project.liveUrl && (
+                        <motion.a
+                          href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+                          className="btn btn-primary"
+                          whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                          style={{ padding: '0.5rem 1.25rem', fontSize: '0.78rem', background: project.accent, color: '#fff', width: 'auto' }}
+                        >
+                          <Globe size={15} /> Live Demo <ArrowRight size={13} />
+                        </motion.a>
+                      )}
+                    </div>
                   </div>
                 </TiltCard>
               </motion.div>
@@ -1347,22 +1367,6 @@ const Experience = () => {
       description: 'Worked as full-stack developer intern building web application modules and backend services at Cyberpark Calicut.',
       skills: ['Full-stack Development', 'Web Applications', 'Backend Services'],
       color: '#22C55E',
-    },
-    {
-      title: 'Deloitte — Data Analytics Simulation',
-      company: 'Forage',
-      type: 'Job Simulation',
-      description: 'Applied data analysis techniques to real business scenarios. Performed forensic technology analysis and generated business insight reports.',
-      skills: ['Data Analysis', 'Forensic Technology', 'Business Reporting'],
-      color: '#7C3AED',
-    },
-    {
-      title: 'Tata — Data Visualization Simulation',
-      company: 'Forage',
-      type: 'Job Simulation',
-      description: 'Framed business scenarios with data, selected visualization types, created business charts, and communicated data-driven insights to stakeholders.',
-      skills: ['Data Visualization', 'Business Charts', 'Insight Communication'],
-      color: '#F59E0B',
     },
   ], []);
 

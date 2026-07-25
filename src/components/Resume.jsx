@@ -232,24 +232,24 @@ const Resume = ({ isOpen, onClose }) => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {[
                     {
-                      title: 'Trip Planner Mobile App (CODEEDEX)',
-                      desc: 'Customized trip planning mobile application built with Flutter & Firebase, delivering seamless user experience and cloud data sync.',
-                      stack: 'Flutter • Firebase • Cloud Integration • Dart',
+                      title: 'Budget Buddy — Room Expense Manager (Priority #1)',
+                      desc: 'Full-stack React & TypeScript room management app with live Vercel deployment (budget-buddy4.vercel.app). Real-time balance calculations, group & friend debt settlements, custom split algorithms, and Firebase DB integration.',
+                      stack: 'React • TypeScript • Firebase • Tailwind CSS • Vite',
                     },
                     {
-                      title: 'Petrol Station Analytics — Python → Power BI',
-                      desc: 'End-to-end pipeline processing 150K+ transactions (₹2.15B revenue). Built Operations & HR dashboards with IQR outlier detection.',
+                      title: 'Sales Analytics & AI Revenue Forecasting System',
+                      desc: 'Production-grade full-stack web application with FastAPI backend, React frontend, Google Gemini AI business insight generator, and Linear Regression revenue forecasting.',
+                      stack: 'Python • FastAPI • React • Gemini AI • Scikit-Learn • Pandas',
+                    },
+                    {
+                      title: 'Petrol Station Analytics — End-to-End Pipeline',
+                      desc: 'End-to-end pipeline processing 150K+ transactions (₹2.15B revenue). Built Operations & HR dashboards in Power BI with IQR outlier detection.',
                       stack: 'Python • Pandas • NumPy • Power BI • Matplotlib',
                     },
                     {
                       title: 'Hospital Doctor Utilization & Patient Cost Analysis',
                       desc: 'Integrated 4 datasets, built multi-table pipeline, executed 10+ SQL queries. Identified 3 high-cost patient segments.',
                       stack: 'Python • Pandas • MySQL • SQLAlchemy • Matplotlib',
-                    },
-                    {
-                      title: 'Netflix Dataset — Cleaning & Segmentation',
-                      desc: 'Cleaned 8,000+ records, performed genre/actor analysis, created Power BI visualizations.',
-                      stack: 'Python • Pandas • Excel • Power BI',
                     },
                   ].map((proj, i) => (
                     <div key={i} style={{ padding: '1rem', background: '#F4F4F6', borderRadius: '12px', border: '1px solid #E7E7E7', borderLeft: '3px solid #FF634A' }}>
