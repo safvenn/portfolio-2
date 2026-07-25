@@ -1,17 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X, Download, Mail, Phone, MapPin, Github, Linkedin, Award, Briefcase, GraduationCap, Globe } from 'lucide-react';
+import { X, Download, Mail, Phone, MapPin, Github, Linkedin, Award, Briefcase, GraduationCap, Globe, Cpu } from 'lucide-react';
 
 const Resume = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const skills = [
-    { name: 'Python (Pandas, NumPy)', level: '85%' },
-    { name: 'SQL / MySQL', level: '90%' },
-    { name: 'Power BI', level: '80%' },
-    { name: 'Microsoft Excel', level: '85%' },
-    { name: 'Data Cleaning & EDA', level: '90%' },
-    { name: 'Data Visualization', level: '85%' },
+    { name: 'Artificial Intelligence & ML', level: '90%' },
+    { name: 'Prompt Engineering & GenAI', level: '92%' },
+    { name: 'Python (Pandas, NumPy, Scikit)', level: '90%' },
+    { name: 'SQL & Database Modeling', level: '90%' },
+    { name: 'FastAPI & Backend Engineering', level: '85%' },
+    { name: 'Power BI & Data Visualization', level: '85%' },
+    { name: 'AWS & Cloud Integration', level: '80%' },
   ];
 
   return (
@@ -49,7 +50,7 @@ const Resume = ({ isOpen, onClose }) => {
           border: '1px solid #E7E7E7',
           boxShadow: '0 24px 80px rgba(0,0,0,0.15)',
           width: '100%',
-          maxWidth: '900px',
+          maxWidth: '920px',
           overflow: 'hidden',
           position: 'relative',
         }}
@@ -73,7 +74,6 @@ const Resume = ({ isOpen, onClose }) => {
         <div style={{ padding: '3rem 2.5rem 2.5rem' }}>
           {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: '3rem', paddingBottom: '2.5rem', borderBottom: '1px solid #E7E7E7' }}>
-            {/* Logo pill */}
             <div style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               width: 52, height: 52, borderRadius: '14px', background: '#FF634A',
@@ -84,15 +84,15 @@ const Resume = ({ isOpen, onClose }) => {
               fontWeight: 800, letterSpacing: '-0.04em', color: '#1B1B1B', marginBottom: '0.5rem',
             }}>SAFVAN SIDHEEQ</h1>
             <p style={{
-              fontSize: '0.9rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase',
+              fontSize: '0.9rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase',
               color: '#FF634A', fontFamily: 'var(--font-mono)', marginBottom: '1.5rem',
-            }}>Data Analyst</p>
+            }}>Aspiring AI Engineer | ML | FastAPI | SQL | Python | AWS</p>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
               {[
-                { Icon: Mail, val: 'safvankallayi7@gmail.com' },
+                { Icon: Mail, val: 'mkdsafwan4@gmail.com' },
                 { Icon: Phone, val: '+91 8590207382' },
-                { Icon: MapPin, val: 'Kerala, India' },
+                { Icon: MapPin, val: 'Kozhikode, Kerala, India' },
               ].map(({ Icon, val }) => (
                 <span key={val} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#666666', fontSize: '0.85rem' }}>
                   <Icon size={13} color="#FF634A" /> {val}
@@ -122,10 +122,7 @@ const Resume = ({ isOpen, onClose }) => {
                   color: '#FF634A', fontFamily: 'var(--font-mono)', fontWeight: 700,
                 }}>Professional Summary</h2>
                 <p style={{ color: '#666666', fontSize: '0.88rem', lineHeight: 1.75 }}>
-                  Detail-oriented aspiring Data Analyst with strong skills in data cleaning, exploratory data analysis,
-                  multi-table integration, and dashboard creation. Experienced in transforming raw data into structured datasets
-                  and developing dashboards using Python, SQL, Excel, and Power BI. Completed professional job simulations
-                  from Deloitte and Tata through Forage.
+                  Aspiring AI Engineer with strong skills in Artificial Intelligence, Machine Learning, Prompt Writing, FastAPI backend engineering, SQL, Python, and Data Analytics. Passionate about building intelligent systems, optimizing ML workflows, and developing scalable cloud/web integrations.
                 </p>
               </section>
 
@@ -140,9 +137,34 @@ const Resume = ({ isOpen, onClose }) => {
                   <GraduationCap size={14} />Education
                 </h2>
                 <div style={{ padding: '1rem', background: '#F4F4F6', borderRadius: '12px', border: '1px solid #E7E7E7' }}>
-                  <h3 style={{ fontSize: '0.95rem', color: '#1B1B1B', fontWeight: 700, marginBottom: '0.25rem' }}>Bachelor of Computer Applications (BCA)</h3>
-                  <p style={{ color: '#666666', fontSize: '0.85rem', marginBottom: '0.25rem' }}>Kerala, India</p>
-                  <p style={{ fontSize: '0.78rem', color: '#FF634A', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>Expected Graduation: 2026</p>
+                  <h3 style={{ fontSize: '0.95rem', color: '#1B1B1B', fontWeight: 700, marginBottom: '0.25rem' }}>University of Calicut</h3>
+                  <p style={{ color: '#666666', fontSize: '0.85rem', marginBottom: '0.25rem' }}>Kozhikode, Kerala, India</p>
+                  <p style={{ fontSize: '0.78rem', color: '#FF634A', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>2025 - 2032</p>
+                </div>
+              </section>
+
+              {/* Work & Internships */}
+              <section style={{ marginBottom: '2.5rem' }}>
+                <h2 style={{
+                  borderBottom: '2px solid #FF634A', paddingBottom: '0.5rem', marginBottom: '1.25rem',
+                  fontSize: '0.75rem', letterSpacing: '0.14em', textTransform: 'uppercase',
+                  color: '#FF634A', fontFamily: 'var(--font-mono)', fontWeight: 700,
+                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                }}>
+                  <Briefcase size={14} />Work & Internships
+                </h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {[
+                    { company: 'Luminar Technolab', role: 'Data Science Intern', date: 'June 2026 - Present (Kochi)', desc: 'Focusing on data science workflows, EDA, machine learning pipelines, and predictive analytics.' },
+                    { company: 'CODEEDEX TECHNOLOGIES', role: 'Flutter Intern', date: 'August 2025 - February 2026 (7 mos)', desc: 'Developed customized trip planning mobile application using Flutter and Firebase cloud integration.' },
+                    { company: 'ICT Academy', role: 'Full-stack Developer Intern', date: 'May 2025 - June 2025 (Cyberpark Calicut)', desc: 'Developed full-stack web modules and backend API services.' },
+                  ].map((item, i) => (
+                    <div key={i} style={{ padding: '0.85rem 1rem', background: '#F4F4F6', borderRadius: '10px', border: '1px solid #E7E7E7' }}>
+                      <h3 style={{ fontSize: '0.88rem', color: '#1B1B1B', fontWeight: 700 }}>{item.company} — {item.role}</h3>
+                      <p style={{ color: '#8A8A8A', fontSize: '0.78rem', margin: '0.15rem 0', fontFamily: 'var(--font-mono)' }}>{item.date}</p>
+                      <p style={{ color: '#666666', fontSize: '0.82rem' }}>{item.desc}</p>
+                    </div>
+                  ))}
                 </div>
               </section>
 
@@ -158,8 +180,11 @@ const Resume = ({ isOpen, onClose }) => {
                 </h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {[
+                    { title: 'Google AI Essentials Specialization', org: 'Google / Coursera — Jul 2026' },
                     { title: 'Exploratory Data Analysis with Python and Pandas', org: 'Coursera — 2026' },
                     { title: 'Databases and SQL for Data Science with Python', org: 'IBM / Coursera — 2026' },
+                    { title: 'Data Visualisation: Business Insights', org: 'Tata / Forage — 2026' },
+                    { title: 'Data Analytics Job Simulation', org: 'Deloitte / Forage — 2026' },
                   ].map((cert, i) => (
                     <div key={i} style={{ padding: '0.85rem 1rem', background: '#F4F4F6', borderRadius: '10px', border: '1px solid #E7E7E7' }}>
                       <h3 style={{ fontSize: '0.88rem', color: '#1B1B1B', fontWeight: 600, marginBottom: '0.2rem' }}>{cert.title}</h3>
@@ -168,60 +193,11 @@ const Resume = ({ isOpen, onClose }) => {
                   ))}
                 </div>
               </section>
-
-              {/* Job Simulations */}
-              <section style={{ marginBottom: '2.5rem' }}>
-                <h2 style={{
-                  borderBottom: '2px solid #FF634A', paddingBottom: '0.5rem', marginBottom: '1.25rem',
-                  fontSize: '0.75rem', letterSpacing: '0.14em', textTransform: 'uppercase',
-                  color: '#FF634A', fontFamily: 'var(--font-mono)', fontWeight: 700,
-                  display: 'flex', alignItems: 'center', gap: '0.5rem',
-                }}>
-                  <Briefcase size={14} />Job Simulations
-                </h2>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  {[
-                    { company: 'Deloitte', role: 'Data Analytics Simulation', date: 'Forage • April 2026', desc: 'Data Analysis, Forensic Technology, Business Insight Reporting' },
-                    { company: 'Tata', role: 'Data Visualization Simulation', date: 'Forage • April 2026', desc: 'Business Scenario Framing, Creating Charts, Communicating Insights' },
-                  ].map((sim, i) => (
-                    <div key={i} style={{ padding: '0.85rem 1rem', background: '#F4F4F6', borderRadius: '10px', border: '1px solid #E7E7E7' }}>
-                      <h3 style={{ fontSize: '0.88rem', color: '#1B1B1B', fontWeight: 700 }}>{sim.company} — {sim.role}</h3>
-                      <p style={{ color: '#8A8A8A', fontSize: '0.78rem', margin: '0.15rem 0', fontFamily: 'var(--font-mono)' }}>{sim.date}</p>
-                      <p style={{ color: '#666666', fontSize: '0.82rem' }}>{sim.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Languages */}
-              <section>
-                <h2 style={{
-                  borderBottom: '2px solid #FF634A', paddingBottom: '0.5rem', marginBottom: '1.25rem',
-                  fontSize: '0.75rem', letterSpacing: '0.14em', textTransform: 'uppercase',
-                  color: '#FF634A', fontFamily: 'var(--font-mono)', fontWeight: 700,
-                  display: 'flex', alignItems: 'center', gap: '0.5rem',
-                }}>
-                  <Globe size={14} />Languages
-                </h2>
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  {[
-                    { lang: 'English', level: 'Professional' },
-                    { lang: 'Malayalam', level: 'Native' },
-                    { lang: 'Hindi', level: 'Conversational' },
-                  ].map((l) => (
-                    <span key={l.lang} style={{
-                      padding: '0.35rem 0.75rem', borderRadius: '20px',
-                      background: '#F4F4F6', border: '1px solid #D2D2D4',
-                      fontSize: '0.78rem', color: '#666666', fontWeight: 500,
-                    }}>{l.lang} <span style={{ color: '#8A8A8A' }}>· {l.level}</span></span>
-                  ))}
-                </div>
-              </section>
             </div>
 
             {/* Right Column */}
             <div>
-              {/* Skills */}
+              {/* Technical Skills */}
               <section style={{ marginBottom: '2.5rem' }}>
                 <h2 style={{
                   borderBottom: '2px solid #FF634A', paddingBottom: '0.5rem', marginBottom: '1.25rem',
@@ -256,6 +232,11 @@ const Resume = ({ isOpen, onClose }) => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {[
                     {
+                      title: 'Trip Planner Mobile App (CODEEDEX)',
+                      desc: 'Customized trip planning mobile application built with Flutter & Firebase, delivering seamless user experience and cloud data sync.',
+                      stack: 'Flutter • Firebase • Cloud Integration • Dart',
+                    },
+                    {
                       title: 'Petrol Station Analytics — Python → Power BI',
                       desc: 'End-to-end pipeline processing 150K+ transactions (₹2.15B revenue). Built Operations & HR dashboards with IQR outlier detection.',
                       stack: 'Python • Pandas • NumPy • Power BI • Matplotlib',
@@ -269,11 +250,6 @@ const Resume = ({ isOpen, onClose }) => {
                       title: 'Netflix Dataset — Cleaning & Segmentation',
                       desc: 'Cleaned 8,000+ records, performed genre/actor analysis, created Power BI visualizations.',
                       stack: 'Python • Pandas • Excel • Power BI',
-                    },
-                    {
-                      title: 'Sales Performance Dashboard',
-                      desc: 'Interactive dashboard tracking 6 KPIs with drill-through analysis and automated summaries.',
-                      stack: 'Power BI • Excel',
                     },
                   ].map((proj, i) => (
                     <div key={i} style={{ padding: '1rem', background: '#F4F4F6', borderRadius: '12px', border: '1px solid #E7E7E7', borderLeft: '3px solid #FF634A' }}>
@@ -294,11 +270,11 @@ const Resume = ({ isOpen, onClose }) => {
                 }}>Key Achievements</h2>
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                   {[
-                    'Built multi-table hospital analytics integrating 4 datasets',
-                    'Developed SQL-based analytical workflows with 10+ queries',
-                    'Completed Deloitte and Tata professional simulations',
-                    'Earned certifications in Python and SQL from Coursera/IBM',
-                    'Built end-to-end data pipelines from raw data to visualization',
+                    'Earned Google AI Essentials Specialization from Google/Coursera',
+                    'Completed Flutter & Firebase internship at CODEEDEX TECHNOLOGIES',
+                    'Built data & AI processing pipelines using Python, SQL, and FastAPI',
+                    'Completed Deloitte and Tata professional analytics simulations',
+                    'Built multi-table hospital & retail analytics integrating multiple datasets',
                   ].map((achievement, i) => (
                     <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', color: '#666666', fontSize: '0.87rem', lineHeight: 1.5 }}>
                       <span style={{

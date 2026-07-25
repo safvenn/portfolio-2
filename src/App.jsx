@@ -777,7 +777,7 @@ const HeroDashboard = () => {
    HERO SECTION
    ============================================= */
 const Hero = () => {
-  const roles = useMemo(() => ['Data Analyst', 'BI Developer', 'Dashboard Creator', 'SQL Expert'], []);
+  const roles = useMemo(() => ['AI Engineer', 'Machine Learning', 'FastAPI & Backend', 'Prompt Engineering', 'Data Analytics'], []);
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
@@ -838,8 +838,8 @@ const Hero = () => {
               marginBottom: '1rem',
               color: '#1B1B1B',
             }}>
-              Turning data into<br />
-              <span className="gradient-text">decisions that matter</span>
+              Architecting Intelligent<br />
+              <span className="gradient-text">AI Systems & ML Solutions</span>
             </h1>
 
             {/* Rotating role */}
@@ -876,8 +876,7 @@ const Hero = () => {
                 marginBottom: '2rem',
               }}
             >
-              Final-year BCA student transforming raw data into actionable business insights
-              using Python, SQL, Excel, and Power BI.
+              Aspiring AI Engineer specializing in Machine Learning, Generative AI, FastAPI backend engineering, and Data Analytics. Building intelligent applications and data pipelines.
             </motion.p>
 
             {/* CTA buttons */}
@@ -946,9 +945,9 @@ const Hero = () => {
             >
               {[
                 { number: '4', suffix: '+', label: 'Projects' },
-                { number: '150', suffix: 'K+', label: 'Records' },
-                { number: '100', suffix: '+', label: 'SQL Queries' },
-                { number: '4', suffix: '', label: 'Certifications' },
+                { number: '3', suffix: '+', label: 'Internships' },
+                { number: '10', suffix: '+', label: 'Tech Tools' },
+                { number: '5', suffix: '', label: 'Certifications' },
               ].map((stat, i) => (
                 <motion.div key={i} className="stat-item" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
                   <div className="stat-number gradient-text">
@@ -1024,16 +1023,10 @@ const About = () => {
           <FadeIn direction="right">
             <div className="glass-card" style={{ padding: '2rem' }}>
               <p style={{ color: 'var(--text-2)', fontSize: '0.95rem', lineHeight: 1.85, marginBottom: '1.25rem' }}>
-                I am a detail-oriented aspiring Data Analyst with strong skills in data cleaning, exploratory data analysis,
-                multi-table integration, and dashboard creation. I have hands-on experience working with real-world datasets
-                using <span style={{ color: 'var(--accent)', fontWeight: 600 }}>Python</span>, <span style={{ color: '#7C3AED', fontWeight: 600 }}>SQL</span>,
-                <span style={{ color: '#F59E0B', fontWeight: 600 }}> Excel</span>, and <span style={{ color: '#3B82F6', fontWeight: 600 }}>Power BI</span> to
-                generate meaningful business insights.
+                I am an aspiring <span style={{ color: 'var(--accent)', fontWeight: 600 }}>AI Engineer</span> with strong skills in Artificial Intelligence, Machine Learning, FastAPI backend engineering, and Data Analytics (SQL, Python, Power BI, Excel). I enjoy building intelligent applications, prompt engineering, and processing data to extract actionable insights.
               </p>
               <p style={{ color: 'var(--text-2)', fontSize: '0.95rem', lineHeight: 1.85 }}>
-                I have completed professional job simulations from <strong style={{ color: 'var(--text-1)' }}>Deloitte</strong> and <strong style={{ color: 'var(--text-1)' }}>Tata</strong> through Forage,
-                where I applied real-world data analysis and visualization workflows. My goal is to build scalable data
-                solutions and grow into advanced analytics and predictive modeling roles.
+                My experience spans internships as a <strong style={{ color: 'var(--text-1)' }}>Data Science Intern at Luminar Technolab</strong>, <strong style={{ color: 'var(--text-1)' }}>Flutter Intern at CODEEDEX TECHNOLOGIES</strong>, and <strong style={{ color: 'var(--text-1)' }}>Full-stack Developer Intern at ICT Academy (Cyberpark Calicut)</strong>, along with professional simulations from Deloitte and Tata. Based in Kozhikode, Kerala, India.
               </p>
             </div>
           </FadeIn>
@@ -1045,8 +1038,8 @@ const About = () => {
             {[
               { number: '4', suffix: '+', label: 'Projects Done', icon: <Layers size={16} /> },
               { number: '10', suffix: '+', label: 'Tools Used', icon: <Code2 size={16} /> },
-              { number: '4', suffix: '', label: 'Certifications', icon: <Award size={16} /> },
-              { number: '2', suffix: '+', label: 'Yrs Learning', icon: <Calendar size={16} /> },
+              { number: '5', suffix: '', label: 'Certifications', icon: <Award size={16} /> },
+              { number: '3', suffix: '+', label: 'Internships', icon: <Calendar size={16} /> },
             ].map((stat, i) => (
               <div key={i} className="stat-item">
                 <div style={{ color: 'var(--accent)', marginBottom: '0.3rem' }}>{stat.icon}</div>
@@ -1332,20 +1325,28 @@ const Projects = () => {
 const Experience = () => {
   const experiences = useMemo(() => [
     {
-      title: 'Flutter Development Intern',
-      company: 'Perinthalmanna, India',
+      title: 'Data Science Intern',
+      company: 'Luminar Technolab (Kochi)',
       type: 'Internship',
-      description: 'Developed and optimized cross-platform mobile applications using Flutter. Implemented complex UI designs with state management (Provider, Riverpod). Integrated Firebase for real-time data and authentication.',
-      skills: ['Flutter', 'Dart', 'Firebase', 'Provider', 'Riverpod'],
+      description: 'Gaining hands-on experience in data science, machine learning models, exploratory data analysis, and Python data pipelines.',
+      skills: ['Data Science', 'Machine Learning', 'Python', 'EDA', 'SQL'],
+      color: '#FF634A',
+    },
+    {
+      title: 'Flutter Developer Intern',
+      company: 'CODEEDEX TECHNOLOGIES',
+      type: 'Internship',
+      description: 'Completed a 6-month internship focused on Flutter and Firebase. Developed customized trip planning mobile application and cloud integration.',
+      skills: ['Flutter', 'Firebase', 'Mobile Apps', 'Cloud Integration'],
       color: '#3B82F6',
     },
     {
-      title: 'Full-Stack Development (MERN) Intern',
-      company: 'Kozhikode, India',
+      title: 'Full-stack Developer Intern',
+      company: 'ICT Academy (Cyberpark Calicut)',
       type: 'Internship',
-      description: 'Built responsive web applications using MongoDB, Express.js, React, and Node.js. Developed RESTful APIs and managed backend logic. Collaborated on scalable hosting solutions.',
-      skills: ['MongoDB', 'Express', 'React', 'Node.js'],
-      color: '#10B981',
+      description: 'Worked as full-stack developer intern building web application modules and backend services at Cyberpark Calicut.',
+      skills: ['Full-stack Development', 'Web Applications', 'Backend Services'],
+      color: '#22C55E',
     },
     {
       title: 'Deloitte — Data Analytics Simulation',
@@ -1413,6 +1414,13 @@ const Certifications = () => {
   const [lightboxPdf, setLightboxPdf] = useState(null);
 
   const allCerts = useMemo(() => [
+    {
+      title: 'Google AI Essentials Specialization',
+      provider: 'Google / Coursera', year: 'July 2026', color: '#EA4335',
+      pdf: './cert-coursera-wqg2pouipchs.pdf',
+      skills: ['AI Tools', 'Prompt Engineering', 'Responsible AI', 'Productivity', 'AI Workflows'],
+      type: 'certification'
+    },
     {
       title: 'Exploratory Data Analysis with Python and Pandas',
       provider: 'Coursera', year: '2026', color: '#3B82F6',
@@ -1588,9 +1596,9 @@ const Contact = ({ setIsResumeOpen }) => {
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
                 {[
-                  { Icon: Mail, label: 'Email', val: 'safvankallayi7@gmail.com' },
+                  { Icon: Mail, label: 'Email', val: 'mkdsafwan4@gmail.com' },
                   { Icon: Phone, label: 'Phone', val: '+91 8590207382' },
-                  { Icon: MapPin, label: 'Location', val: 'Kerala, India' }
+                  { Icon: MapPin, label: 'Location', val: 'Kozhikode, Kerala, India' }
                 ].map(({ Icon, label, val }) => (
                   <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <div style={{ width: 36, height: 36, background: 'var(--accent-dim)', border: '1px solid rgba(255, 99, 74, 0.2)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', flexShrink: 0 }}>
