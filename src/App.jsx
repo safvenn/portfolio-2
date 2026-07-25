@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView, useMotionValue } from 'framer-motion';
 import {
   Github, Linkedin, Mail, Phone, MapPin, ExternalLink,
   Download, Menu, X, Send, ArrowRight, ArrowUp,
@@ -8,7 +8,8 @@ import {
   Award, Briefcase, GraduationCap,
   Target, Lightbulb, Globe,
   ChevronDown, Eye, Sun, Moon,
-  Code2, LineChart, Calendar, Layers
+  Code2, LineChart, Calendar, Layers,
+  Zap, CheckCircle2, Bell, Users, Activity, Cpu, Sparkles, ArrowUpRight, Star
 } from 'lucide-react';
 import Resume from './components/Resume';
 
@@ -164,12 +165,11 @@ const BackToTop = () => {
           style={{
             position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 900,
             width: 44, height: 44, borderRadius: '12px',
-            background: 'var(--bg-card-solid)',
-            border: '1px solid var(--border)', color: 'var(--accent)',
+            background: '#FFFFFF',
+            border: '1px solid var(--border-light)', color: 'var(--accent)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             cursor: 'pointer',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-            backdropFilter: 'blur(10px)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.10)',
           }}
           aria-label="Back to top"
         >
@@ -183,7 +183,7 @@ const BackToTop = () => {
 /* =============================================
    NAVBAR
    ============================================= */
-const Navbar = ({ isDark, toggleTheme }) => {
+const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -217,12 +217,13 @@ const Navbar = ({ isDark, toggleTheme }) => {
     <nav style={{
       position: 'fixed', top: 0, width: '100%', zIndex: 1000,
       padding: isScrolled ? '0.75rem 0' : '1.25rem 0',
-      background: isScrolled ? (isDark ? 'rgba(10,10,10,0.9)' : 'rgba(255,255,255,0.9)') : 'transparent',
+      background: isScrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
       backdropFilter: isScrolled ? 'blur(20px)' : 'none',
       WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none',
-      borderBottom: isScrolled ? '1px solid var(--border)' : 'none',
+      borderBottom: isScrolled ? '1px solid var(--border-light)' : 'none',
       transform: isHidden && !isMenuOpen ? 'translateY(-100%)' : 'translateY(0)',
       transition: 'all 0.4s cubic-bezier(0.4,0,0.2,1)',
+      boxShadow: isScrolled ? '0 1px 20px rgba(0,0,0,0.06)' : 'none',
     }}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <motion.a
@@ -234,11 +235,11 @@ const Navbar = ({ isDark, toggleTheme }) => {
         >
           <div style={{
             width: 32, height: 32, borderRadius: '10px',
-            background: 'linear-gradient(135deg, #2563EB, #7C3AED)',
+            background: '#FF634A',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 800, fontSize: '0.85rem', color: '#fff'
           }}>S</div>
-          <span style={{ fontWeight: 700, fontSize: '0.95rem', letterSpacing: '-0.03em' }}>Safvan</span>
+          <span style={{ fontWeight: 700, fontSize: '0.95rem', letterSpacing: '-0.03em', color: 'var(--text-1)' }}>Safvan</span>
         </motion.a>
 
         {/* Desktop Nav */}
@@ -286,7 +287,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
             style={{
               position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-              background: isDark ? 'rgba(10,10,10,0.98)' : 'rgba(255,255,255,0.98)',
+              background: 'rgba(255,255,255,0.98)',
               backdropFilter: 'blur(24px)',
               display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
               gap: '0.5rem', overflow: 'hidden'
@@ -345,19 +346,19 @@ const Navbar = ({ isDark, toggleTheme }) => {
 /* =============================================
    SECTION HEADER
    ============================================= */
-const SectionHeader = ({ label, title, subtitle, light = false }) => (
+const SectionHeader = ({ label, title, subtitle }) => (
   <div style={{ marginBottom: '3.5rem' }}>
     <FadeIn>
-      <div className="section-label" style={light ? { borderColor: 'rgba(37,99,235,0.3)', background: 'rgba(37,99,235,0.1)', color: '#60A5FA' } : {}}>{label}</div>
+      <div className="section-label">{label}</div>
     </FadeIn>
     <FadeIn delay={0.1}>
-      <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.75rem)', marginBottom: '1rem', fontWeight: 800, color: light ? '#F9FAFB' : undefined }}>
+      <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.75rem)', marginBottom: '1rem', fontWeight: 800 }}>
         {title}
       </h2>
     </FadeIn>
     {subtitle && (
       <FadeIn delay={0.2}>
-        <p style={{ fontSize: '1rem', color: light ? '#9CA3AF' : 'var(--text-2)', maxWidth: '560px', lineHeight: 1.7 }}>
+        <p style={{ fontSize: '1rem', color: 'var(--text-2)', maxWidth: '560px', lineHeight: 1.7 }}>
           {subtitle}
         </p>
       </FadeIn>
@@ -410,6 +411,369 @@ const TiltCard = ({ children, className, style }) => {
 };
 
 /* =============================================
+   HERO DASHBOARD MOCKUP — ANIMATED
+   ============================================= */
+
+// Mini animated line-chart SVG
+const MiniLineChart = ({ color = '#FF634A', delay = 0 }) => {
+  const points = '0,55 20,42 40,50 60,28 80,35 100,18 120,25 140,10 160,20 180,8';
+  return (
+    <svg width="100%" height="60" viewBox="0 0 180 60" style={{ overflow: 'visible' }}>
+      <defs>
+        <linearGradient id={`grad-${delay}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.18" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <motion.polygon
+        points={`0,55 ${points} 180,55`}
+        fill={`url(#grad-${delay})`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: delay + 0.6, duration: 0.8 }}
+      />
+      <motion.polyline
+        points={points}
+        fill="none"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ delay: delay + 0.3, duration: 1.2, ease: 'easeOut' }}
+      />
+      {[[140, 10], [180, 8]].map(([x, y], i) => (
+        <motion.circle key={i} cx={x} cy={y} r="3" fill={color}
+          initial={{ scale: 0 }} animate={{ scale: 1 }}
+          transition={{ delay: delay + 1.2 + i * 0.1, type: 'spring', stiffness: 300 }}
+        />
+      ))}
+    </svg>
+  );
+};
+
+// Mini animated bar chart
+const MiniBarChart = ({ delay = 0 }) => {
+  const bars = [
+    { h: 45, color: '#FF634A' },
+    { h: 62, color: '#FF8B76' },
+    { h: 38, color: '#FF634A' },
+    { h: 75, color: '#FF8B76' },
+    { h: 55, color: '#FF634A' },
+    { h: 80, color: '#FF8B76' },
+    { h: 60, color: '#FF634A' },
+  ];
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px', height: 80 }}>
+      {bars.map((b, i) => (
+        <motion.div key={i}
+          initial={{ height: 0 }}
+          animate={{ height: b.h }}
+          transition={{ delay: delay + 0.1 * i, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+          style={{ flex: 1, background: b.color, borderRadius: '4px 4px 0 0', opacity: 0.85 }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Animated donut ring
+const DonutRing = ({ pct = 75, color = '#FF634A', size = 64, delay = 0 }) => {
+  const r = (size - 8) / 2;
+  const circ = 2 * Math.PI * r;
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#E7E7E7" strokeWidth="7" />
+      <motion.circle
+        cx={size / 2} cy={size / 2} r={r}
+        fill="none" stroke={color} strokeWidth="7"
+        strokeLinecap="round"
+        strokeDasharray={circ}
+        initial={{ strokeDashoffset: circ }}
+        animate={{ strokeDashoffset: circ * (1 - pct / 100) }}
+        transition={{ delay, duration: 1.4, ease: 'easeOut' }}
+        style={{ transformOrigin: 'center', transform: 'rotate(-90deg)' }}
+      />
+    </svg>
+  );
+};
+
+// Animated progress bar
+const AnimatedBar = ({ pct, color, delay }) => (
+  <div style={{ height: 5, background: '#E7E7E7', borderRadius: 99, overflow: 'hidden' }}>
+    <motion.div
+      initial={{ width: 0 }}
+      animate={{ width: `${pct}%` }}
+      transition={{ delay, duration: 1, ease: 'easeOut' }}
+      style={{ height: '100%', background: color, borderRadius: 99 }}
+    />
+  </div>
+);
+
+// Floating notification card
+const FloatingCard = ({ children, style, delay = 0, floatDuration = 4, floatAmount = 8 }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.85, y: 20 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    transition={{ delay, duration: 0.6, type: 'spring', stiffness: 200, damping: 20 }}
+    style={{
+      position: 'absolute',
+      background: '#FFFFFF',
+      border: '1px solid #E7E7E7',
+      borderRadius: 16,
+      padding: '14px 16px',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)',
+      backdropFilter: 'blur(12px)',
+      zIndex: 10,
+      ...style,
+    }}
+  >
+    <motion.div
+      animate={{ y: [0, -floatAmount, 0] }}
+      transition={{ duration: floatDuration, repeat: Infinity, ease: 'easeInOut', delay: delay * 0.5 }}
+    >
+      {children}
+    </motion.div>
+  </motion.div>
+);
+
+// Main dashboard mockup
+const HeroDashboard = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [6, -6]), { stiffness: 100, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-8, 8]), { stiffness: 100, damping: 30 });
+  const dashRef = useRef(null);
+
+  const handleMouseMove = useCallback((e) => {
+    const rect = dashRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set(e.clientX - rect.left - rect.width / 2);
+    mouseY.set(e.clientY - rect.top - rect.height / 2);
+  }, [mouseX, mouseY]);
+
+  const handleMouseLeave = useCallback(() => {
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [mouseX, mouseY]);
+
+  const tasks = [
+    { label: 'EDA Pipeline', pct: 88, color: '#FF634A' },
+    { label: 'SQL Queries', pct: 72, color: '#3B82F6' },
+    { label: 'Power BI Report', pct: 95, color: '#22C55E' },
+  ];
+
+  return (
+    <div
+      ref={dashRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ position: 'relative', width: '100%', height: 560, perspective: 900 }}
+    >
+      {/* Main dashboard card */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4, type: 'spring', stiffness: 120, damping: 20 }}
+        style={{
+          rotateX, rotateY,
+          background: '#FFFFFF',
+          border: '1px solid #E7E7E7',
+          borderRadius: 24,
+          padding: '20px',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05)',
+          position: 'relative',
+          zIndex: 5,
+          transformStyle: 'preserve-3d',
+          marginTop: 40,
+        }}
+      >
+        {/* Dashboard header */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: '#FF634A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Activity size={14} color="#fff" />
+            </div>
+            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#1B1B1B' }}>Analytics Dashboard</span>
+          </div>
+          <div style={{ display: 'flex', gap: 5 }}>
+            {['#FF5F57','#FFBD2E','#28C840'].map(c => (
+              <div key={c} style={{ width: 9, height: 9, borderRadius: '50%', background: c }} />
+            ))}
+          </div>
+        </div>
+
+        {/* KPI row */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 16 }}>
+          {[
+            { label: 'Revenue', value: '₹2.15B', change: '+12%', icon: <TrendingUp size={12} color="#22C55E" />, color: '#22C55E' },
+            { label: 'Records', value: '150K+', change: '+8%', icon: <Database size={12} color="#3B82F6" />, color: '#3B82F6' },
+            { label: 'Insights', value: '94', change: '+24%', icon: <Zap size={12} color="#FF634A" />, color: '#FF634A' },
+          ].map((kpi, i) => (
+            <motion.div key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 + i * 0.1 }}
+              style={{ background: '#F4F4F6', borderRadius: 12, padding: '10px 12px' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                <span style={{ fontSize: '0.62rem', color: '#8A8A8A', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{kpi.label}</span>
+                {kpi.icon}
+              </div>
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#1B1B1B', letterSpacing: '-0.03em' }}>{kpi.value}</div>
+              <div style={{ fontSize: '0.6rem', color: kpi.color, fontWeight: 700, marginTop: 2 }}>{kpi.change} this month</div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Line chart area */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          style={{ marginBottom: 16 }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+            <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#1B1B1B' }}>Revenue Trend</span>
+            <span style={{ fontSize: '0.6rem', color: '#8A8A8A', background: '#F4F4F6', padding: '2px 8px', borderRadius: 99 }}>Last 6 months</span>
+          </div>
+          <MiniLineChart color="#FF634A" delay={0.5} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
+            {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map(m => (
+              <span key={m} style={{ fontSize: '0.55rem', color: '#8A8A8A' }}>{m}</span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Tasks / progress */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+        >
+          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#1B1B1B', marginBottom: 8 }}>Project Progress</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {tasks.map((t, i) => (
+              <div key={i}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                  <span style={{ fontSize: '0.65rem', color: '#666' }}>{t.label}</span>
+                  <span style={{ fontSize: '0.65rem', fontWeight: 700, color: t.color }}>{t.pct}%</span>
+                </div>
+                <AnimatedBar pct={t.pct} color={t.color} delay={1.4 + i * 0.15} />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Floating card — AI Widget */}
+      <FloatingCard
+        delay={0.8}
+        floatDuration={5}
+        floatAmount={7}
+        style={{ top: -10, right: -24, width: 170 }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+          <div style={{ width: 26, height: 26, borderRadius: 8, background: 'linear-gradient(135deg, #FF634A, #FF8B76)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Sparkles size={13} color="#fff" />
+          </div>
+          <div>
+            <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#1B1B1B' }}>AI Insight</div>
+            <div style={{ fontSize: '0.55rem', color: '#8A8A8A' }}>Just now</div>
+          </div>
+        </div>
+        <p style={{ fontSize: '0.62rem', color: '#666', lineHeight: 1.5, margin: 0 }}>
+          Revenue up <strong style={{ color: '#FF634A' }}>+12%</strong> — Q2 target achievable
+        </p>
+        <div style={{ marginTop: 8, display: 'flex', gap: 4 }}>
+          {[0.9, 0.7, 0.85].map((o, i) => (
+            <motion.div key={i}
+              animate={{ scaleY: [1, 1.8, 1] }}
+              transition={{ duration: 0.8, delay: i * 0.15, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ width: 3, height: 12, background: '#FF634A', borderRadius: 99, opacity: o, transformOrigin: 'center' }}
+            />
+          ))}
+          <span style={{ fontSize: '0.55rem', color: '#8A8A8A', alignSelf: 'center', marginLeft: 4 }}>Analyzing…</span>
+        </div>
+      </FloatingCard>
+
+      {/* Floating card — Notification */}
+      <FloatingCard
+        delay={1.0}
+        floatDuration={6}
+        floatAmount={6}
+        style={{ bottom: 80, right: -28, width: 190 }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#F4F4F6', border: '2px solid #E7E7E7', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <Bell size={14} color="#FF634A" />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#1B1B1B' }}>Report Ready</div>
+            <div style={{ fontSize: '0.58rem', color: '#8A8A8A' }}>Sales Q2 Dashboard exported</div>
+          </div>
+          <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#22C55E', flexShrink: 0 }} />
+        </div>
+      </FloatingCard>
+
+      {/* Floating card — Stats bubble */}
+      <FloatingCard
+        delay={1.2}
+        floatDuration={7}
+        floatAmount={10}
+        style={{ bottom: 30, left: -20, width: 148 }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <DonutRing pct={82} color="#FF634A" size={52} delay={1.5} />
+          <div>
+            <div style={{ fontSize: '0.62rem', color: '#8A8A8A', marginBottom: 2 }}>Accuracy</div>
+            <div style={{ fontSize: '1rem', fontWeight: 800, color: '#1B1B1B' }}>82%</div>
+            <div style={{ fontSize: '0.55rem', color: '#22C55E', fontWeight: 600 }}>↑ High</div>
+          </div>
+        </div>
+      </FloatingCard>
+
+      {/* Floating card — Mini bar chart */}
+      <FloatingCard
+        delay={0.6}
+        floatDuration={5.5}
+        floatAmount={5}
+        style={{ top: 120, left: -30, width: 160 }}
+      >
+        <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#1B1B1B', marginBottom: 8 }}>Weekly Queries</div>
+        <MiniBarChart delay={0.8} />
+      </FloatingCard>
+
+      {/* Floating card — Users */}
+      <FloatingCard
+        delay={1.4}
+        floatDuration={4.5}
+        floatAmount={6}
+        style={{ top: 320, left: -40, width: 160 }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+          <Users size={13} color="#FF634A" />
+          <span style={{ fontSize: '0.65rem', fontWeight: 700, color: '#1B1B1B' }}>Active Now</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: -6 }}>
+          {['#FF634A','#3B82F6','#22C55E','#F59E0B'].map((c, i) => (
+            <div key={i} style={{
+              width: 24, height: 24, borderRadius: '50%',
+              background: c, border: '2px solid #fff',
+              marginLeft: i > 0 ? -8 : 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '0.55rem', fontWeight: 700, color: '#fff'
+            }}>{['S','A','M','R'][i]}</div>
+          ))}
+          <span style={{ fontSize: '0.6rem', color: '#8A8A8A', marginLeft: 8 }}>+12 more</span>
+        </div>
+      </FloatingCard>
+    </div>
+  );
+};
+
+/* =============================================
    HERO SECTION
    ============================================= */
 const Hero = () => {
@@ -420,6 +784,12 @@ const Hero = () => {
     const interval = setInterval(() => setRoleIndex(prev => (prev + 1) % roles.length), 3000);
     return () => clearInterval(interval);
   }, [roles.length]);
+
+  const trustItems = [
+    { icon: <CheckCircle2 size={13} />, label: 'Trusted by Recruiters' },
+    { icon: <Zap size={13} />, label: 'AI Powered Insights' },
+    { icon: <Star size={13} />, label: 'Top Certified' },
+  ];
 
   return (
     <section className="hero-section" id="hero">
@@ -444,7 +814,7 @@ const Hero = () => {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
                 padding: '0.4rem 1.2rem', borderRadius: '9999px',
-                border: '1px solid rgba(37,99,235,0.25)',
+                border: '1px solid rgba(255, 99, 74, 0.25)',
                 background: 'var(--accent-dim)',
                 fontSize: '0.75rem', color: 'var(--accent)',
                 fontFamily: 'var(--font-mono)', letterSpacing: '0.06em',
@@ -461,34 +831,35 @@ const Hero = () => {
 
             <h1 style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.5rem, 6.5vw, 4.5rem)',
+              fontSize: 'clamp(2.4rem, 6vw, 4.2rem)',
               fontWeight: 800,
-              lineHeight: 1.05,
+              lineHeight: 1.08,
               letterSpacing: '-0.04em',
-              marginBottom: '1.5rem',
+              marginBottom: '1rem',
+              color: '#1B1B1B',
             }}>
-              Hi, I'm{' '}
-              <span className="gradient-text">Safvan Sidheeq</span>
+              Turning data into<br />
+              <span className="gradient-text">decisions that matter</span>
             </h1>
 
             {/* Rotating role */}
-            <div style={{ height: '2.5rem', overflow: 'hidden', marginBottom: '1.5rem' }}>
+            <div style={{ height: '2.2rem', overflow: 'hidden', marginBottom: '1.25rem' }}>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={roleIndex}
-                  initial={{ y: 30, opacity: 0 }}
+                  initial={{ y: 28, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -30, opacity: 0 }}
+                  exit={{ y: -28, opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                   style={{
-                    fontSize: 'clamp(1.1rem, 3vw, 1.6rem)',
+                    fontSize: 'clamp(1rem, 2.5vw, 1.35rem)',
                     fontWeight: 700,
                     fontFamily: 'var(--font-display)',
                     color: 'var(--accent)',
-                    letterSpacing: '-0.02em'
+                    letterSpacing: '-0.02em',
                   }}
                 >
-                  {roles[roleIndex]}
+                  Safvan Sidheeq — {roles[roleIndex]}
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -498,41 +869,80 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
               style={{
-                fontSize: 'clamp(0.9rem, 2vw, 1.02rem)',
+                fontSize: 'clamp(0.88rem, 1.8vw, 1rem)',
                 color: 'var(--text-2)',
-                maxWidth: '520px',
+                maxWidth: '480px',
                 lineHeight: 1.8,
-                marginBottom: '2.5rem',
+                marginBottom: '2rem',
               }}
             >
-              Final-year BCA student specializing in Data Analytics, Business Intelligence, and Data Visualization.
-              Transforming raw data into actionable business insights using Python, SQL, Excel, and Power BI.
+              Final-year BCA student transforming raw data into actionable business insights
+              using Python, SQL, Excel, and Power BI.
             </motion.p>
 
+            {/* CTA buttons */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
               className="hero-cta-row"
-              style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
+              style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', marginBottom: '1.75rem' }}
             >
-              <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                href="#projects" className="btn btn-primary">
-                <BarChart3 size={15} /> View Projects
+              <motion.a
+                whileHover={{ scale: 1.04, boxShadow: '0 8px 30px rgba(255,99,74,0.35)' }}
+                whileTap={{ scale: 0.97 }}
+                href="#projects"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                  padding: '0 1.75rem', height: 52, borderRadius: 9999,
+                  background: '#FF634A', color: '#fff',
+                  fontSize: '0.85rem', fontWeight: 700,
+                  border: 'none', cursor: 'pointer', textDecoration: 'none',
+                  transition: 'all 0.25s',
+                  boxShadow: '0 4px 20px rgba(255,99,74,0.3)',
+                }}
+              >
+                <BarChart3 size={16} /> View Projects
               </motion.a>
-              <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                href="#contact" className="btn btn-outline">
-                <Download size={15} /> Download Resume
+              <motion.a
+                whileHover={{ scale: 1.04, background: '#fff', borderColor: '#D2D2D4' }}
+                whileTap={{ scale: 0.97 }}
+                href="#contact"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                  padding: '0 1.75rem', height: 52, borderRadius: 9999,
+                  background: 'transparent', color: '#1B1B1B',
+                  fontSize: '0.85rem', fontWeight: 700,
+                  border: '1.5px solid #D2D2D4', cursor: 'pointer', textDecoration: 'none',
+                  transition: 'all 0.25s',
+                }}
+              >
+                <Download size={16} /> Download CV
               </motion.a>
+            </motion.div>
+
+            {/* Trust items */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9 }}
+              style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}
+            >
+              {trustItems.map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#666', fontSize: '0.78rem', fontWeight: 500 }}>
+                  <span style={{ color: '#FF634A' }}>{item.icon}</span>
+                  {item.label}
+                </div>
+              ))}
             </motion.div>
 
             {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
+              transition={{ delay: 1.1 }}
               className="stats-row"
-              style={{ marginTop: '2.5rem', maxWidth: '500px' }}
+              style={{ marginTop: '2rem', maxWidth: '480px' }}
             >
               {[
                 { number: '4', suffix: '+', label: 'Projects' },
@@ -540,7 +950,7 @@ const Hero = () => {
                 { number: '100', suffix: '+', label: 'SQL Queries' },
                 { number: '4', suffix: '', label: 'Certifications' },
               ].map((stat, i) => (
-                <motion.div key={i} className="stat-item" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                <motion.div key={i} className="stat-item" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
                   <div className="stat-number gradient-text">
                     <AnimatedCounter value={stat.number} suffix={stat.suffix} />
                   </div>
@@ -549,14 +959,19 @@ const Hero = () => {
               ))}
             </motion.div>
           </motion.div>
+
+          {/* Right: Dashboard mockup */}
+          <div className="hero-dashboard-wrapper">
+            <HeroDashboard />
+          </div>
         </div>
 
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          style={{ textAlign: 'center', marginTop: '2rem' }}
+          transition={{ delay: 1.8 }}
+          style={{ textAlign: 'center', marginTop: '2.5rem' }}
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -575,11 +990,11 @@ const Hero = () => {
    ============================================= */
 const About = () => {
   const expertise = useMemo(() => [
-    { icon: <Table2 size={20} />, title: 'Data Cleaning', desc: 'Transforming messy datasets into structured, analysis-ready data.', color: '#2563EB' },
-    { icon: <Database size={20} />, title: 'SQL & Data Modeling', desc: 'Building multi-table data models and executing complex queries.', color: '#7C3AED' },
-    { icon: <BarChart3 size={20} />, title: 'Dashboard Creation', desc: 'Designing interactive Power BI and Excel dashboards.', color: '#3B82F6' },
+    { icon: <Table2 size={20} />, title: 'Data Cleaning', desc: 'Transforming messy datasets into structured, analysis-ready data.', color: '#FF634A' },
+    { icon: <Database size={20} />, title: 'SQL & Data Modeling', desc: 'Building multi-table data models and executing complex queries.', color: '#3B82F6' },
+    { icon: <BarChart3 size={20} />, title: 'Dashboard Creation', desc: 'Designing interactive Power BI and Excel dashboards.', color: '#8B5CF6' },
     { icon: <TrendingUp size={20} />, title: 'Statistical Analysis', desc: 'Identifying patterns and trends for data-driven decisions.', color: '#F59E0B' },
-    { icon: <BrainCircuit size={20} />, title: 'EDA & Insights', desc: 'Conducting exploratory analysis to uncover business insights.', color: '#10B981' },
+    { icon: <BrainCircuit size={20} />, title: 'EDA & Insights', desc: 'Conducting exploratory analysis to uncover business insights.', color: '#22C55E' },
     { icon: <Target size={20} />, title: 'Business Intelligence', desc: 'Translating data into actionable business recommendations.', color: '#EF4444' },
   ], []);
 
@@ -599,8 +1014,8 @@ const About = () => {
                 loading="lazy"
               />
               <div style={{ marginTop: '1rem' }}>
-                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Safvan Sidheeq</h3>
-                <p style={{ fontSize: '0.8rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)', letterSpacing: '0.05em' }}>DATA ANALYST</p>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: 'var(--text-1)' }}>Safvan Sidheeq</h3>
+                <p style={{ fontSize: '0.8rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)', letterSpacing: '0.05em', fontWeight: 600 }}>DATA ANALYST</p>
               </div>
             </div>
           </FadeIn>
@@ -746,7 +1161,7 @@ const ToolsMarquee = () => {
   return (
     <section ref={sectionRef} className="dark-section section" id="tools" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
       <div className="container">
-        <SectionHeader label="Toolkit" title="Tools I Use" subtitle="Industry-standard tools and technologies powering my workflow." light />
+        <SectionHeader label="Toolkit" title="Tools I Use" subtitle="Industry-standard tools and technologies powering my workflow." />
       </div>
 
       <div className="marquee-container" style={{ marginBottom: '1.5rem' }}>
@@ -953,32 +1368,32 @@ const Experience = () => {
   return (
     <section id="experience" className="dark-section section" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
       <div className="container">
-        <SectionHeader label="Journey" title="Experience & Simulations" subtitle="Professional internships and industry simulations shaping my career." light />
+        <SectionHeader label="Journey" title="Experience & Simulations" subtitle="Professional internships and industry simulations shaping my career." />
 
         <div className="timeline">
           {experiences.map((exp, idx) => (
             <FadeIn key={idx} delay={idx * 0.1}>
               <div className={`timeline-item ${idx === 0 ? 'active' : ''}`}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#F9FAFB' }}>{exp.title}</h3>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-1)' }}>{exp.title}</h3>
                   <span style={{
                     padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.6rem',
                     fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
-                    background: `${exp.color}20`, color: exp.color,
+                    background: `${exp.color}15`, color: exp.color,
                     border: `1px solid ${exp.color}30`,
                     fontFamily: 'var(--font-mono)'
                   }}>
                     {exp.type}
                   </span>
                 </div>
-                <p style={{ fontSize: '0.82rem', color: '#60A5FA', fontWeight: 600, marginBottom: '0.6rem', fontFamily: 'var(--font-mono)' }}>{exp.company}</p>
-                <p style={{ color: '#9CA3AF', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1rem', maxWidth: '600px' }}>{exp.description}</p>
+                <p style={{ fontSize: '0.82rem', color: 'var(--accent)', fontWeight: 600, marginBottom: '0.6rem', fontFamily: 'var(--font-mono)' }}>{exp.company}</p>
+                <p style={{ color: 'var(--text-2)', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1rem', maxWidth: '600px' }}>{exp.description}</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                   {exp.skills.map((s, i) => (
                     <span key={i} style={{
                       padding: '0.2rem 0.55rem', borderRadius: '6px',
-                      background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)',
-                      fontSize: '0.68rem', color: '#9CA3AF', fontFamily: 'var(--font-mono)'
+                      background: 'var(--bg)', border: '1px solid var(--border-light)',
+                      fontSize: '0.68rem', color: 'var(--text-2)', fontFamily: 'var(--font-mono)'
                     }}>{s}</span>
                   ))}
                 </div>
@@ -1000,7 +1415,7 @@ const Certifications = () => {
   const allCerts = useMemo(() => [
     {
       title: 'Exploratory Data Analysis with Python and Pandas',
-      provider: 'Coursera', year: '2026', color: '#2563EB',
+      provider: 'Coursera', year: '2026', color: '#3B82F6',
       pdf: './cert-eda-coursera.pdf',
       skills: ['Data Cleaning', 'Data Transformation', 'EDA', 'Statistical Summaries'],
       type: 'certification'
@@ -1062,8 +1477,8 @@ const Certifications = () => {
                     style={{
                       display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
                       padding: '0.4rem 0.85rem', borderRadius: '8px',
-                      background: 'rgba(37,99,235,0.3)', backdropFilter: 'blur(8px)',
-                      border: '1px solid rgba(37,99,235,0.4)',
+                      background: 'rgba(255, 99, 74, 0.85)', backdropFilter: 'blur(8px)',
+                      border: '1px solid rgba(255, 99, 74, 0.6)',
                       color: '#fff', fontSize: '0.72rem', fontWeight: 600, cursor: 'pointer'
                     }}
                   >
@@ -1076,9 +1491,9 @@ const Certifications = () => {
                   <span style={{
                     padding: '0.15rem 0.45rem', borderRadius: '4px', fontSize: '0.6rem',
                     fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
-                    background: cert.type === 'certification' ? 'var(--accent-dim)' : 'rgba(124,58,237,0.1)',
-                    color: cert.type === 'certification' ? 'var(--accent)' : '#A78BFA',
-                    border: `1px solid ${cert.type === 'certification' ? 'rgba(37,99,235,0.2)' : 'rgba(124,58,237,0.2)'}`,
+                    background: cert.type === 'certification' ? 'var(--accent-dim)' : 'rgba(139,92,246,0.1)',
+                    color: cert.type === 'certification' ? 'var(--accent)' : '#8B5CF6',
+                    border: `1px solid ${cert.type === 'certification' ? 'rgba(255,99,74,0.2)' : 'rgba(139,92,246,0.2)'}`,
                     fontFamily: 'var(--font-mono)'
                   }}>
                     {cert.type === 'certification' ? '🎓 Certification' : '💼 Simulation'}
@@ -1162,7 +1577,7 @@ const Contact = ({ setIsResumeOpen }) => {
         <SectionHeader label="Contact" title="Let's Connect" subtitle="Open to Data Analyst roles and analytical project collaborations." />
         <FadeIn>
           <div className="glass-card contact-grid" style={{ padding: 'clamp(1.5rem, 4vw, 3.5rem)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '3rem', overflow: 'hidden', position: 'relative' }}>
-            <div style={{ position: 'absolute', top: '-30%', right: '-10%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)', borderRadius: '50%', zIndex: 0 }} />
+            <div style={{ position: 'absolute', top: '-30%', right: '-10%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(255, 99, 74, 0.06) 0%, transparent 70%)', borderRadius: '50%', zIndex: 0 }} />
 
             <div style={{ position: 'relative', zIndex: 1 }}>
               <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)', marginBottom: '1rem', fontWeight: 800, letterSpacing: '-0.04em' }}>
@@ -1178,7 +1593,7 @@ const Contact = ({ setIsResumeOpen }) => {
                   { Icon: MapPin, label: 'Location', val: 'Kerala, India' }
                 ].map(({ Icon, label, val }) => (
                   <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{ width: 36, height: 36, background: 'var(--accent-dim)', border: '1px solid rgba(37,99,235,0.2)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', flexShrink: 0 }}>
+                    <div style={{ width: 36, height: 36, background: 'var(--accent-dim)', border: '1px solid rgba(255, 99, 74, 0.2)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', flexShrink: 0 }}>
                       <Icon size={16} />
                     </div>
                     <div style={{ minWidth: 0 }}>
@@ -1218,7 +1633,7 @@ const Contact = ({ setIsResumeOpen }) => {
                 </motion.a>
               </div>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                className="btn btn-outline" style={{ width: '100%', padding: '0.85rem', justifyContent: 'center', borderColor: 'rgba(37,99,235,0.25)', color: 'var(--accent)' }}
+                className="btn btn-outline" style={{ width: '100%', padding: '0.85rem', justifyContent: 'center', borderColor: 'rgba(255, 99, 74, 0.3)', color: 'var(--accent)' }}
                 onClick={() => setIsResumeOpen(true)}>
                 <Download size={15} /> View Full Resume
               </motion.button>
@@ -1255,10 +1670,10 @@ const App = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadPct, setLoadPct] = useState(0);
-  const [isDark] = useState(true);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'dark');
+    // Light theme — no dark-mode attribute needed
+    document.documentElement.removeAttribute('data-theme');
   }, []);
 
   useEffect(() => {
@@ -1279,20 +1694,20 @@ const App = () => {
           <motion.div
             key="loader"
             initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}
-            style={{ position: 'fixed', inset: 0, zIndex: 9999, background: isDark ? '#0A0A0A' : '#FFFFFF', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1.5rem' }}
+            style={{ position: 'fixed', inset: 0, zIndex: 9999, background: '#F4F4F6', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1.5rem' }}
           >
             <motion.div
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ duration: 2, repeat: Infinity }}
               style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}
             >
-              <div style={{ width: 36, height: 36, borderRadius: '10px', background: 'linear-gradient(135deg, #2563EB, #7C3AED)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.1rem', color: '#fff' }}>S</div>
-              <span style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.04em', color: isDark ? '#F9FAFB' : '#111827', fontFamily: 'var(--font-display)' }}>Safvan</span>
+              <div style={{ width: 36, height: 36, borderRadius: '10px', background: '#FF634A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.1rem', color: '#fff' }}>S</div>
+              <span style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.04em', color: '#1B1B1B', fontFamily: 'var(--font-display)' }}>Safvan</span>
             </motion.div>
             <div>
               <div className="loader-bar">
                 <motion.div
-                  style={{ height: '100%', background: 'linear-gradient(90deg, #2563EB, #7C3AED)', borderRadius: '2px' }}
+                  style={{ height: '100%', background: '#FF634A', borderRadius: '2px' }}
                   initial={{ width: '0%' }}
                   animate={{ width: `${Math.min(loadPct, 100)}%` }}
                   transition={{ duration: 0.2 }}
@@ -1310,7 +1725,7 @@ const App = () => {
           >
             <ScrollProgress />
             <MagneticCursor />
-            <Navbar isDark={isDark} />
+            <Navbar />
             <BackToTop />
 
             <main>
@@ -1329,8 +1744,8 @@ const App = () => {
               <div className="container footer-inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
-                    <div style={{ width: 22, height: 22, borderRadius: '6px', background: 'linear-gradient(135deg, #2563EB, #7C3AED)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.65rem', color: '#fff' }}>S</div>
-                    <span style={{ fontWeight: 700, fontSize: '0.95rem', letterSpacing: '-0.03em' }}>Safvan</span>
+                    <div style={{ width: 22, height: 22, borderRadius: '6px', background: '#FF634A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.65rem', color: '#fff' }}>S</div>
+                    <span style={{ fontWeight: 700, fontSize: '0.95rem', letterSpacing: '-0.03em', color: 'var(--text-1)' }}>Safvan</span>
                   </div>
                   <p style={{ color: 'var(--text-3)', fontSize: '0.78rem' }}>© 2026 Safvan Sidheeq. All rights reserved.</p>
                 </div>
@@ -1342,7 +1757,7 @@ const App = () => {
                   ].map(link => (
                     <motion.a key={link.label} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
                       whileHover={{ y: -2, color: 'var(--accent)' }}
-                      style={{ color: 'var(--text-3)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem' }}>
+                      style={{ color: 'var(--text-2)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem' }}>
                       {link.icon} {link.label}
                     </motion.a>
                   ))}

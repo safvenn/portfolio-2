@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "skills": {
+    "deploy-to-vercel": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/deploy-to-vercel/SKILL.md",
+      "computedHash": "03e0eaaa9bf13ba1e7ffa387f5893de6f324c0868c627001f179395a8feaa7c9"
+    },
+    "install-loop": {
+      "source": "cobusgreyling/loop-engineering",
+      "sourceType": "github",
+      "skillPath": "skills/install-loop/SKILL.md",
+      "computedHash": "3a54ff0901aa030638501291a125c81e66c77df812622dc35439720b6e6e070f"
+    },
+    "loop-budget": {
+      "source": "cobusgreyling/loop-engineering",
+      "sourceType": "github",
+      "skillPath": "skills/loop-budget/SKILL.md",
+      "computedHash": "1ce8a7974bea5cf684cba1b6c5601ae5e951bc4a1b1626478a30bdff0164b7cd"
+    },
+    "loop-constraints": {
+      "source": "cobusgreyling/loop-engineering",
+      "sourceType": "github",
+      "skillPath": "skills/loop-constraints/SKILL.md",
+      "computedHash": "5f403f6f9dfbcfa05bd0475373b6d4546fd24ea69ca6cd9e64c908373dca9863"
+    },
+    "loop-triage": {
+      "source": "cobusgreyling/loop-engineering",
+      "sourceType": "github",
+      "skillPath": "skills/loop-triage/SKILL.md",
+      "computedHash": "377b060b6e2754c524aea668045eccc279a14d3a40bddd2a323641c8fd94eb39"
+    },
+    "loop-verifier": {
+      "source": "cobusgreyling/loop-engineering",
+      "sourceType": "github",
+      "skillPath": "skills/loop-verifier/SKILL.md",
+      "computedHash": "11d630f72be75a3969e8ba66ecc750f3c2b4c75fcd355f3071152bf3840f4652"
+    },
+    "minimal-fix": {
+      "source": "cobusgreyling/loop-engineering",
+      "sourceType": "github",
+      "skillPath": "skills/minimal-fix/SKILL.md",
+      "computedHash": "8ba0f9676d359b599ae7e6767d39085d71a37f952d0dcf68923e4b559f0e72f4"
+    },
+    "shadcn": {
+      "source": "shadcn/ui",
+      "sourceType": "github",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "computedHash": "f99ef49d9909d380ca683ceb8dc8c25775c20ee38140112c394e037d8c11ee18"
+    }
+  }
+}
