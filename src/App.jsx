@@ -12,6 +12,7 @@ import {
   Zap, CheckCircle2, Bell, Users, Activity, Cpu, Sparkles, ArrowUpRight, Star
 } from 'lucide-react';
 import Resume from './components/Resume';
+import DigitalIdCard from './components/DigitalIdCard';
 
 /* =============================================
    SMOOTH FADE-IN WRAPPER
@@ -449,135 +450,214 @@ const TiltCard = ({ children, className, style }) => {
 };
 
 /* =============================================
-   HERO VISUAL — Floating Skill Bubbles around Avatar
+   HERO VISUAL — Modern Standing 3D Avatar with Grounding & Ambient Glow
    ============================================= */
 const HeroVisual = () => {
-  const bubbles = [
-    { label: 'Python', bg: '#ECD06F', angle: -40, radius: 180 },
-    { label: 'Machine Learning', bg: '#FF9398', angle: 30, radius: 195 },
-    { label: 'FastAPI', bg: '#49C5B6', angle: 100, radius: 175 },
-    { label: 'SQL', bg: '#ECD06F', angle: 160, radius: 190 },
-    { label: 'Generative AI', bg: '#FF9398', angle: 220, radius: 180 },
-    { label: 'Power BI', bg: '#FFF8E8', angle: 280, radius: 185 },
-    { label: 'React', bg: '#49C5B6', angle: 330, radius: 170 },
-    { label: 'Data Analytics', bg: '#ECD06F', angle: 70, radius: 200 },
-  ];
-
   return (
-    <div style={{
+    <div className="hero-avatar-wrapper" style={{
       position: 'relative',
-      width: 420,
-      height: 420,
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'flex-end',
       justifyContent: 'center',
-      flexShrink: 0,
+      width: '100%',
+      maxWidth: '520px',
     }}>
-      {/* Outer decorative ring */}
+      {/* Soft ambient backlight glow behind avatar */}
       <div style={{
         position: 'absolute',
-        width: 380,
-        height: 380,
-        border: '2px dashed rgba(23,23,23,0.25)',
+        top: '42%',
+        left: '52%',
+        transform: 'translate(-50%, -50%)',
+        width: '380px',
+        height: '380px',
         borderRadius: '50%',
-        animation: 'spinSlow 60s linear infinite',
+        background: 'radial-gradient(circle, rgba(236, 208, 111, 0.32) 0%, rgba(73, 197, 182, 0.18) 45%, rgba(255, 147, 152, 0.08) 68%, transparent 75%)',
+        filter: 'blur(40px)',
+        pointerEvents: 'none',
+        zIndex: 1,
       }} />
 
-      {/* Central avatar circle */}
+      {/* Subtle neo-brutalist orbital dash ring */}
+      <div style={{
+        position: 'absolute',
+        top: '45%',
+        left: '52%',
+        transform: 'translate(-50%, -50%)',
+        width: '360px',
+        height: '360px',
+        borderRadius: '50%',
+        border: '1.5px dashed rgba(23, 23, 23, 0.16)',
+        pointerEvents: 'none',
+        zIndex: 1,
+      }} />
+
+      {/* Ground soft contact shadow underneath avatar base */}
+      <div style={{
+        position: 'absolute',
+        bottom: '-10px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '72%',
+        height: '24px',
+        borderRadius: '50%',
+        background: 'radial-gradient(ellipse at center, rgba(23, 23, 23, 0.22) 0%, rgba(23, 23, 23, 0.07) 50%, transparent 75%)',
+        filter: 'blur(5px)',
+        pointerEvents: 'none',
+        zIndex: 2,
+      }} />
+
+      {/* Main Avatar Character - Standing prominently */}
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, type: 'spring', stiffness: 120, damping: 20 }}
+        initial={{ opacity: 0, y: 35, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
         style={{
-          width: 200,
-          height: 200,
-          borderRadius: '50%',
-          border: '3px solid #171717',
-          overflow: 'hidden',
-          background: '#FFF8E8',
-          boxShadow: '5px 5px 0 #171717',
-          zIndex: 5,
           position: 'relative',
-          flexShrink: 0,
+          zIndex: 3,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          width: '100%',
         }}
       >
-        <img
-          src="/avatar.jpg"
-          alt="Safvan Sidheeq"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+        <motion.img
+          src="/avatar-hero.png"
+          alt="Safvan Sidheeq - AI Engineer Avatar"
+          className="hero-avatar-img"
+          animate={{ y: [0, -7, 0] }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            maxHeight: '560px',
+            width: 'auto',
+            objectFit: 'contain',
+            display: 'block',
+            userSelect: 'none',
+            pointerEvents: 'auto',
+            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 84%, rgba(0,0,0,0) 100%)',
+            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 84%, rgba(0,0,0,0) 100%)',
+          }}
         />
       </motion.div>
 
-      {/* Floating skill bubbles */}
-      {bubbles.map((bubble, i) => {
-        const rad = (bubble.angle * Math.PI) / 180;
-        const x = Math.cos(rad) * bubble.radius;
-        const y = Math.sin(rad) * bubble.radius;
-        return (
-          <motion.div
-            key={bubble.label}
-            className="skill-bubble"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: [0, -8, 0],
-            }}
-            transition={{
-              opacity: { delay: 0.3 + i * 0.1, duration: 0.5 },
-              scale: { delay: 0.3 + i * 0.1, duration: 0.5, type: 'spring', stiffness: 200 },
-              y: {
-                delay: 0.8 + i * 0.12,
-                duration: 3 + i * 0.4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              },
-            }}
-            style={{
-              background: bubble.bg,
-              left: `calc(50% + ${x}px)`,
-              top: `calc(50% + ${y}px)`,
-              transform: `translate(-50%, -50%) rotate(${i % 2 === 0 ? '-2deg' : '1.5deg'})`,
-              zIndex: 6,
-              fontSize: '0.72rem',
-              fontWeight: 700,
-              padding: '0.35rem 0.85rem',
-            }}
-          >
-            {bubble.label}
-          </motion.div>
-        );
-      })}
-
-      {/* Decorative blobs */}
+      {/* Floating minimal tech badge - Left: Generative AI */}
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-        style={{
-          position: 'absolute',
-          width: 60, height: 60,
-          top: 20, right: 30,
-          background: '#FF9398',
-          border: '2px solid #171717',
-          borderRadius: '40% 60% 70% 30% / 50% 40% 60% 50%',
-          boxShadow: '3px 3px 0 #171717',
-          zIndex: 4,
+        className="hero-badge hero-badge-left"
+        initial={{ opacity: 0, scale: 0.8, x: -20 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          x: 0,
+          y: [0, -6, 0],
         }}
-      />
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+        transition={{
+          opacity: { delay: 0.5, duration: 0.5 },
+          scale: { delay: 0.5, duration: 0.5, type: 'spring' },
+          y: { delay: 0.8, duration: 3.6, repeat: Infinity, ease: 'easeInOut' },
+        }}
         style={{
           position: 'absolute',
-          width: 50, height: 50,
-          bottom: 40, left: 20,
+          left: '-12px',
+          top: '32%',
+          zIndex: 4,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+          padding: '0.4rem 0.85rem',
+          borderRadius: '9999px',
           background: '#ECD06F',
           border: '2px solid #171717',
-          borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
           boxShadow: '3px 3px 0 #171717',
-          zIndex: 4,
+          fontSize: '0.78rem',
+          fontWeight: 800,
+          color: '#171717',
+          fontFamily: 'var(--font-display)',
+          whiteSpace: 'nowrap',
         }}
-      />
+      >
+        <BrainCircuit size={14} />
+        <span>Generative AI</span>
+      </motion.div>
+
+      {/* Floating minimal tech badge - Right: ML & FastAPI */}
+      <motion.div
+        className="hero-badge hero-badge-right"
+        initial={{ opacity: 0, scale: 0.8, x: 20 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          x: 0,
+          y: [0, 6, 0],
+        }}
+        transition={{
+          opacity: { delay: 0.6, duration: 0.5 },
+          scale: { delay: 0.6, duration: 0.5, type: 'spring' },
+          y: { delay: 0.9, duration: 3.8, repeat: Infinity, ease: 'easeInOut' },
+        }}
+        style={{
+          position: 'absolute',
+          right: '-10px',
+          top: '25%',
+          zIndex: 4,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+          padding: '0.4rem 0.85rem',
+          borderRadius: '9999px',
+          background: '#49C5B6',
+          border: '2px solid #171717',
+          boxShadow: '3px 3px 0 #171717',
+          fontSize: '0.78rem',
+          fontWeight: 800,
+          color: '#171717',
+          fontFamily: 'var(--font-display)',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <Cpu size={14} />
+        <span>ML & FastAPI</span>
+      </motion.div>
+
+      {/* Floating minimal status pill - Bottom Right: Active Model */}
+      <motion.div
+        className="hero-badge hero-badge-bottom"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{
+          opacity: 1,
+          y: [0, -5, 0],
+        }}
+        transition={{
+          opacity: { delay: 0.7, duration: 0.5 },
+          y: { delay: 1, duration: 3.2, repeat: Infinity, ease: 'easeInOut' },
+        }}
+        style={{
+          position: 'absolute',
+          right: '20px',
+          bottom: '10%',
+          zIndex: 4,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+          padding: '0.35rem 0.8rem',
+          borderRadius: '9999px',
+          background: '#FFF8E8',
+          border: '2px solid #171717',
+          boxShadow: '2px 2px 0 #171717',
+          fontSize: '0.74rem',
+          fontWeight: 800,
+          color: '#171717',
+          fontFamily: 'var(--font-display)',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <span style={{
+          width: 7, height: 7,
+          borderRadius: '50%',
+          background: '#22c55e',
+          boxShadow: '0 0 6px #22c55e',
+          display: 'inline-block'
+        }} />
+        <span>Building AI Systems</span>
+      </motion.div>
     </div>
   );
 };
@@ -586,20 +666,13 @@ const HeroVisual = () => {
    HERO SECTION
    ============================================= */
 const Hero = () => {
-  const roles = useMemo(() => ['AI Engineer', 'Machine Learning', 'FastAPI & Backend', 'Prompt Engineering', 'Data Analytics'], []);
-  const [roleIndex, setRoleIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => setRoleIndex(prev => (prev + 1) % roles.length), 3000);
-    return () => clearInterval(interval);
-  }, [roles.length]);
-
   return (
     <section className="hero-section" id="hero">
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div className="hero-content">
-          {/* Left: Text */}
+          {/* Left: Text Content */}
           <motion.div
+            className="hero-text-col"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -611,12 +684,12 @@ const Hero = () => {
               transition={{ delay: 0.2 }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                padding: '0.4rem 1.1rem', borderRadius: '9999px',
+                padding: '0.35rem 1rem', borderRadius: '9999px',
                 border: '2px solid #171717',
                 background: '#FF9398',
                 fontSize: '0.78rem', color: '#171717',
                 fontFamily: 'var(--font-main)', fontWeight: 700,
-                marginBottom: '1.75rem',
+                marginBottom: '1.4rem',
                 boxShadow: '3px 3px 0 #171717',
                 transform: 'rotate(-2deg)',
               }}
@@ -637,80 +710,71 @@ const Hero = () => {
             >
               <div style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
-                fontWeight: 700,
-                color: 'rgba(23,23,23,0.6)',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                marginBottom: '0.4rem',
+                fontSize: 'clamp(1rem, 2.2vw, 1.3rem)',
+                fontWeight: 800,
+                color: 'rgba(23,23,23,0.7)',
+                letterSpacing: '0.04em',
+                marginBottom: '0.35rem',
               }}>
                 Hello, I'm
               </div>
               <h1 style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.6rem, 6.5vw, 5rem)',
+                fontSize: 'clamp(2.8rem, 6vw, 4.8rem)',
                 fontWeight: 900,
-                lineHeight: 0.95,
+                lineHeight: 1.0,
                 letterSpacing: '-0.04em',
-                marginBottom: '0.5rem',
+                marginBottom: '1rem',
                 color: '#171717',
               }}>
-                Safvan
-              </h1>
-              <h1 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.6rem, 6.5vw, 5rem)',
-                fontWeight: 900,
-                lineHeight: 0.95,
-                letterSpacing: '-0.04em',
-                marginBottom: '1.25rem',
-                color: '#ECD06F',
-                WebkitTextStroke: '2px #171717',
-              }}>
-                Sidheeq.
+                Safvan <span style={{ color: '#ECD06F', WebkitTextStroke: '2px #171717' }}>Sidheeq.</span>
               </h1>
             </motion.div>
 
-            {/* Rotating role */}
-            <div style={{
-              height: '2.4rem', overflow: 'hidden', marginBottom: '1.25rem',
-              display: 'flex', alignItems: 'center',
-            }}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={roleIndex}
-                  initial={{ y: 28, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -28, opacity: 0 }}
-                  transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                    padding: '0.35rem 1rem', borderRadius: '9999px',
-                    border: '2px solid #171717',
-                    background: '#49C5B6',
-                    fontSize: 'clamp(0.82rem, 2vw, 1rem)',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-display)',
-                    color: '#171717',
-                    boxShadow: '2px 2px 0 #171717',
-                  }}
-                >
-                  <Zap size={14} />
-                  {roles[roleIndex]}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            {/* Professional label badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.45rem 1.15rem',
+                borderRadius: '9999px',
+                border: '2px solid #171717',
+                background: '#FFF8E8',
+                fontSize: 'clamp(0.76rem, 1.35vw, 0.86rem)',
+                fontWeight: 800,
+                fontFamily: 'var(--font-display)',
+                color: '#171717',
+                boxShadow: '3px 3px 0 #171717',
+                marginBottom: '1.25rem',
+                flexWrap: 'wrap',
+                lineHeight: 1.4,
+              }}
+            >
+              <Sparkles size={14} color="#171717" />
+              <span>AI Engineer</span>
+              <span style={{ opacity: 0.35 }}>•</span>
+              <span>Machine Learning</span>
+              <span style={{ opacity: 0.35 }}>•</span>
+              <span>Generative AI</span>
+              <span style={{ opacity: 0.35 }}>•</span>
+              <span>Data Analytics</span>
+            </motion.div>
 
+            {/* Short description */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.45 }}
               style={{
-                fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
-                color: 'rgba(23,23,23,0.7)',
-                maxWidth: '460px',
-                lineHeight: 1.75,
-                marginBottom: '2rem',
+                fontSize: 'clamp(0.92rem, 1.6vw, 1.05rem)',
+                color: 'rgba(23,23,23,0.78)',
+                maxWidth: '490px',
+                lineHeight: 1.7,
+                marginBottom: '1.85rem',
                 fontWeight: 500,
               }}
             >
@@ -721,7 +785,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65 }}
+              transition={{ delay: 0.55 }}
               className="hero-cta-row"
               style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', marginBottom: '2rem' }}
             >
@@ -733,11 +797,12 @@ const Hero = () => {
                   display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
                   padding: '0 1.75rem', height: 52, borderRadius: 9999,
                   background: '#ECD06F', color: '#171717',
-                  fontSize: '0.88rem', fontWeight: 700,
+                  fontSize: '0.9rem', fontWeight: 700,
                   border: '2px solid #171717', cursor: 'pointer', textDecoration: 'none',
                   boxShadow: '4px 4px 0 #171717',
-                  transition: 'all 0.2s',
+                  transition: 'all 0.15s ease',
                   fontFamily: 'var(--font-main)',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 <BarChart3 size={16} /> View Projects
@@ -745,16 +810,19 @@ const Hero = () => {
               <motion.a
                 whileHover={{ x: 2, y: 2, boxShadow: '2px 2px 0 #171717' }}
                 whileTap={{ scale: 0.97 }}
-                href="#contact"
+                href="/resume_ats.html"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
                   padding: '0 1.75rem', height: 52, borderRadius: 9999,
                   background: '#FFF8E8', color: '#171717',
-                  fontSize: '0.88rem', fontWeight: 700,
+                  fontSize: '0.9rem', fontWeight: 700,
                   border: '2px solid #171717', cursor: 'pointer', textDecoration: 'none',
                   boxShadow: '4px 4px 0 #171717',
-                  transition: 'all 0.2s',
+                  transition: 'all 0.15s ease',
                   fontFamily: 'var(--font-main)',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 <Download size={16} /> Download CV
@@ -765,7 +833,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.85 }}
+              transition={{ delay: 0.7 }}
               className="stats-row"
               style={{ maxWidth: '420px' }}
             >
@@ -785,8 +853,8 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right: Visual */}
-          <div className="hero-dashboard-wrapper" style={{ display: 'flex', justifyContent: 'center' }}>
+          {/* Right: Prominent Standing Avatar Visual */}
+          <div className="hero-dashboard-wrapper">
             <HeroVisual />
           </div>
         </div>
@@ -795,8 +863,8 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.8 }}
-          style={{ textAlign: 'center', marginTop: '3rem' }}
+          transition={{ delay: 1.2 }}
+          style={{ textAlign: 'center', marginTop: '2.5rem' }}
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -811,126 +879,265 @@ const Hero = () => {
 };
 
 /* =============================================
-   ABOUT SECTION
+   ABOUT SECTION — Interactive 3D Digital ID Card & Capabilities
    ============================================= */
 const About = () => {
-  const expertise = useMemo(() => [
-    { icon: <Table2 size={20} />, title: 'Data Cleaning', desc: 'Transforming messy datasets into structured, analysis-ready data.', bg: '#ECD06F' },
-    { icon: <Database size={20} />, title: 'SQL & Data Modeling', desc: 'Building multi-table data models and executing complex queries.', bg: '#FF9398' },
-    { icon: <BarChart3 size={20} />, title: 'Dashboard Creation', desc: 'Designing interactive Power BI and Excel dashboards.', bg: '#49C5B6' },
-    { icon: <TrendingUp size={20} />, title: 'Statistical Analysis', desc: 'Identifying patterns and trends for data-driven decisions.', bg: '#ECD06F' },
-    { icon: <BrainCircuit size={20} />, title: 'EDA & Insights', desc: 'Conducting exploratory analysis to uncover business insights.', bg: '#FF9398' },
-    { icon: <Target size={20} />, title: 'Business Intelligence', desc: 'Translating data into actionable business recommendations.', bg: '#49C5B6' },
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const capabilities = useMemo(() => [
+    {
+      icon: <BrainCircuit size={22} />,
+      title: 'AI-Powered Applications',
+      tag: 'GenAI & LLMs',
+      desc: 'Building intelligent applications with LLM integration, prompt engineering, agentic tools, and contextual intelligence.',
+      bg: '#ECD06F',
+    },
+    {
+      icon: <Cpu size={22} />,
+      title: 'Machine-Learning Systems',
+      tag: 'Scikit-learn / PyTorch',
+      desc: 'End-to-end predictive modeling, feature engineering, classification, regression, and model evaluation pipelines.',
+      bg: '#FF9398',
+    },
+    {
+      icon: <Database size={22} />,
+      title: 'Data Pipelines & ETL',
+      tag: 'SQL & Data Modeling',
+      desc: 'Automating multi-table data modeling, complex analytical queries, cleaning dirty data, and building ingestion flows.',
+      bg: '#49C5B6',
+    },
+    {
+      icon: <Layers size={22} />,
+      title: 'Generative AI & RAG',
+      tag: 'Vector DBs & Retrieval',
+      desc: 'Retrieval-Augmented Generation workflows, semantic vector search, document indexing, and hallucination guardrails.',
+      bg: '#ECD06F',
+    },
+    {
+      icon: <Zap size={22} />,
+      title: 'FastAPI Backend Engineering',
+      tag: 'Async REST APIs',
+      desc: 'High-performance asynchronous backend services, authentication, structured Pydantic schemas, and database migrations.',
+      bg: '#FF9398',
+    },
+    {
+      icon: <Target size={22} />,
+      title: 'Intelligent Automation',
+      tag: 'Analytics & Reporting',
+      desc: 'Automated data scraping, scheduled analysis tasks, interactive dashboards (Power BI / Excel), and business reporting.',
+      bg: '#49C5B6',
+    },
   ], []);
 
   return (
-    <section id="about" className="section" style={{ background: '#FFF8E8', backgroundImage: 'radial-gradient(rgba(23,23,23,0.04) 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
-      <div className="container">
-        <SectionHeader label="About Me" title="Who I Am" subtitle="A detail-oriented aspiring AI/Data Engineer passionate about turning data into decisions." />
+    <section id="about" className="about-id-section" style={{ position: 'relative' }}>
+      {/* Dark Atmospheric Background Elements */}
+      <div className="about-id-bg-grid" />
+      <div className="about-id-radial-glow" />
 
-        <div className="about-grid">
-          {/* Left: Image & identity */}
-          <FadeIn direction="left">
-            <div className="glass-card" style={{ padding: '1.75rem', textAlign: 'center', transform: 'rotate(-1.5deg)' }}>
-              <div style={{
-                width: '180px', height: '180px',
-                borderRadius: '50%',
-                border: '3px solid #171717',
-                overflow: 'hidden',
-                margin: '0 auto 1rem',
-                boxShadow: '4px 4px 0 #171717',
-                background: '#F5EDDA',
-              }}>
-                <img
-                  src="/avatar.jpg"
-                  alt="Safvan Sidheeq"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
-                  loading="lazy"
-                />
-              </div>
-              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#171717' }}>Safvan Sidheeq</h3>
-              <div style={{
-                display: 'inline-block',
-                padding: '0.3rem 0.9rem',
-                background: '#49C5B6',
-                border: '2px solid #171717',
-                borderRadius: '9999px',
-                fontSize: '0.72rem',
-                fontWeight: 700,
-                letterSpacing: '0.06em',
-                fontFamily: 'var(--font-mono)',
-                color: '#171717',
-                boxShadow: '2px 2px 0 #171717',
-                marginTop: '0.5rem',
-              }}>AI / DATA ENGINEER</div>
-            </div>
-          </FadeIn>
+      {/* Neo-Brutalist Technical Corner Badges */}
+      <div style={{
+        position: 'absolute',
+        top: '1.25rem',
+        left: '2rem',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.64rem',
+        fontWeight: 800,
+        color: '#171717',
+        background: '#ECD06F',
+        border: '1.5px solid #171717',
+        boxShadow: '2px 2px 0 #171717',
+        padding: '0.2rem 0.65rem',
+        borderRadius: '9999px',
+        letterSpacing: '0.06em',
+        pointerEvents: 'none',
+        zIndex: 11,
+      }}>
+        SYS // SF-2026-DEV
+      </div>
+      <div style={{
+        position: 'absolute',
+        top: '1.25rem',
+        right: '2rem',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.64rem',
+        fontWeight: 800,
+        color: '#171717',
+        background: '#FFF8E8',
+        border: '1.5px solid #171717',
+        boxShadow: '2px 2px 0 #171717',
+        padding: '0.2rem 0.65rem',
+        borderRadius: '9999px',
+        letterSpacing: '0.06em',
+        pointerEvents: 'none',
+        zIndex: 11,
+      }}>
+        LOC // 11.25° N • 75.78° E
+      </div>
 
-          {/* Right: Text */}
-          <FadeIn direction="right">
-            <div className="glass-card" style={{ padding: '2rem' }}>
-              <p style={{ color: '#3A3A3A', fontSize: '0.95rem', lineHeight: 1.85, marginBottom: '1.25rem' }}>
-                I am an aspiring <span style={{
-                  background: '#ECD06F', padding: '0.1rem 0.5rem',
-                  borderRadius: '6px', border: '1.5px solid #171717',
-                  fontWeight: 700,
-                }}>AI Engineer</span> with strong skills in Artificial Intelligence, Machine Learning, FastAPI backend engineering, and Data Analytics (SQL, Python, Power BI, Excel). I enjoy building intelligent applications, prompt engineering, and processing data to extract actionable insights.
-              </p>
-              <p style={{ color: '#3A3A3A', fontSize: '0.95rem', lineHeight: 1.85 }}>
-                My experience spans internships as a <strong style={{ color: '#171717' }}>Data Science Intern at Luminar Technolab</strong>, <strong style={{ color: '#171717' }}>Flutter Intern at CODEEDEX TECHNOLOGIES</strong>, and <strong style={{ color: '#171717' }}>Full-stack Developer Intern at ICT Academy (Cyberpark Calicut)</strong>, along with professional simulations from Deloitte and Tata. Based in Kozhikode, Kerala, India.
-              </p>
+      {/* 1. STICKY 3D DIGITAL ID CARD SCROLL EXPERIENCE */}
+      <div
+        ref={sectionRef}
+        style={{
+          minHeight: '180vh',
+          position: 'relative',
+        }}
+      >
+        <div className="about-sticky-stage">
+          {/* Centered 3D Digital ID Card */}
+          <DigitalIdCard scrollProgress={scrollYProgress} />
+        </div>
+      </div>
 
-              {/* Quote */}
-              <div style={{
-                marginTop: '1.5rem',
-                padding: '1rem 1.25rem',
-                background: '#49C5B6',
-                border: '2px solid #171717',
-                borderRadius: '12px',
-                boxShadow: '3px 3px 0 #171717',
-                transform: 'rotate(0.5deg)',
-              }}>
-                <p style={{ fontSize: '0.9rem', fontStyle: 'italic', color: '#171717', lineHeight: 1.75, fontWeight: 500 }}>
-                  "Every dataset has a story to tell. My job is to clean the noise, find the patterns, and present insights that drive real business impact."
-                </p>
-              </div>
-            </div>
-          </FadeIn>
+      {/* 2. POST-FLIP: "WHAT I BUILD" CAPABILITIES SHOWCASE */}
+      <div className="container" style={{ paddingBottom: '6rem', position: 'relative', zIndex: 15 }}>
+        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+          <div className="section-label" style={{ transform: 'rotate(-1deg)', display: 'inline-flex', background: '#ECD06F' }}>
+            Capabilities
+          </div>
+
+          <h2 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(2rem, 4.5vw, 3.2rem)',
+            fontWeight: 800,
+            letterSpacing: '-0.03em',
+            color: '#171717',
+            marginBottom: '0.75rem',
+          }}>
+            What I Build
+          </h2>
+          <p style={{
+            fontFamily: 'var(--font-main)',
+            fontSize: '1rem',
+            color: '#3A3A3A',
+            maxWidth: '580px',
+            margin: '0 auto',
+            lineHeight: 1.7,
+          }}>
+            Specialized engineering capabilities across Machine Learning, Generative AI, high-concurrency backends, and data intelligence.
+          </p>
         </div>
 
-        {/* Animated Counters */}
-        <FadeIn direction="left" delay={0.1}>
-          <div className="stats-row" style={{ maxWidth: '600px', marginBottom: '3.5rem' }}>
+        {/* 6 Capabilities Cards Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '3.5rem',
+        }}>
+          {capabilities.map((cap, i) => (
+            <FadeIn key={cap.title} delay={i * 0.08}>
+              <motion.div
+                whileHover={{ y: -4, x: -2, boxShadow: '6px 6px 0 #171717' }}
+                style={{
+                  background: '#FFF8E8',
+                  border: '2px solid #171717',
+                  borderRadius: '20px',
+                  padding: '1.75rem',
+                  boxShadow: '4px 4px 0 #171717',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+                }}
+              >
+                <div>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '1.25rem',
+                  }}>
+                    <div style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '12px',
+                      background: i % 3 === 0 ? '#ECD06F' : i % 3 === 1 ? '#49C5B6' : '#FF9398',
+                      border: '2px solid #171717',
+                      boxShadow: '2px 2px 0 #171717',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#171717',
+                    }}>
+                      {cap.icon}
+                    </div>
+
+                    <span style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.68rem',
+                      fontWeight: 700,
+                      padding: '0.22rem 0.65rem',
+                      borderRadius: '9999px',
+                      background: '#171717',
+                      color: '#ECD06F',
+                      letterSpacing: '0.04em',
+                    }}>
+                      {cap.tag}
+                    </span>
+                  </div>
+
+                  <h3 style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1.2rem',
+                    fontWeight: 800,
+                    letterSpacing: '-0.02em',
+                    color: '#171717',
+                    marginBottom: '0.6rem',
+                  }}>
+                    {cap.title}
+                  </h3>
+
+                  <p style={{
+                    fontFamily: 'var(--font-main)',
+                    fontSize: '0.9rem',
+                    lineHeight: 1.7,
+                    color: '#3A3A3A',
+                  }}>
+                    {cap.desc}
+                  </p>
+                </div>
+              </motion.div>
+            </FadeIn>
+          ))}
+        </div>
+
+        {/* Animated Metrics Strip */}
+        <FadeIn delay={0.2}>
+          <div className="stats-row" style={{ maxWidth: '800px', margin: '0 auto' }}>
             {[
-              { number: '4', suffix: '+', label: 'Projects Done', icon: <Layers size={16} /> },
-              { number: '10', suffix: '+', label: 'Tools Used', icon: <Code2 size={16} /> },
-              { number: '5', suffix: '', label: 'Certifications', icon: <Award size={16} /> },
-              { number: '3', suffix: '+', label: 'Internships', icon: <Calendar size={16} /> },
+              { number: '4', suffix: '+', label: 'Projects Shipped', icon: <Layers size={18} /> },
+              { number: '10', suffix: '+', label: 'Tech Tools Mastered', icon: <Code2 size={18} /> },
+              { number: '5', suffix: '', label: 'Industry Certifications', icon: <Award size={18} /> },
+              { number: '3', suffix: '+', label: 'Internships Completed', icon: <Calendar size={18} /> },
             ].map((stat, i) => (
-              <div key={i} className="stat-item">
-                <div style={{ color: '#49C5B6', marginBottom: '0.3rem' }}>{stat.icon}</div>
-                <div className="stat-number"><AnimatedCounter value={stat.number} suffix={stat.suffix} /></div>
-                <div className="stat-label">{stat.label}</div>
-              </div>
+              <motion.div
+                key={i}
+                className="stat-item"
+                style={{
+                  background: '#FFF8E8',
+                  border: '2px solid #171717',
+                  boxShadow: '4px 4px 0 #171717',
+                  color: '#171717',
+                }}
+                whileHover={{ y: -3, boxShadow: '6px 6px 0 #171717' }}
+              >
+                <div style={{ color: '#171717', marginBottom: '0.4rem', display: 'flex', justifyContent: 'center' }}>
+                  {stat.icon}
+                </div>
+                <div className="stat-number" style={{ color: '#171717' }}>
+                  <AnimatedCounter value={stat.number} suffix={stat.suffix} />
+                </div>
+                <div className="stat-label" style={{ color: '#3A3A3A' }}>{stat.label}</div>
+              </motion.div>
             ))}
           </div>
         </FadeIn>
-
-        {/* Core Expertise */}
-        <FadeIn direction="right" delay={0.1}>
-          <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', letterSpacing: '-0.02em', color: '#171717' }}>
-            Core Expertise
-          </h3>
-        </FadeIn>
-        <CoreExpertiseStack expertise={expertise} />
-
-        {/* About grid → 1 col on mobile */}
-        <style>{`
-          @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr !important; }
-            .about-grid > div:first-child { justify-self: center; }
-          }
-        `}</style>
       </div>
     </section>
   );
