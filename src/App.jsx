@@ -7,8 +7,9 @@ import {
   BrainCircuit, Table2, PieChart, TrendingUp,
   Award, Briefcase, GraduationCap,
   Target, Lightbulb, Globe,
-  ChevronDown, Eye, Sun, Moon,
+  ChevronDown, ChevronLeft, ChevronRight, Eye, Sun, Moon,
   Code2, LineChart, Calendar, Layers,
+  Play,
   Zap, CheckCircle2, Bell, Users, Activity, Cpu, Sparkles, ArrowUpRight, Star
 } from 'lucide-react';
 import Resume from './components/Resume';
@@ -1092,208 +1093,357 @@ const ToolsMarquee = () => {
 };
 
 /* =============================================
-   PROJECTS (WITH FILTERS)
+   PROJECTS — SEMICIRCULAR MUSIC PLAYER
    ============================================= */
-const Projects = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
 
-  const filters = useMemo(() => [
-    { label: 'All Projects', value: 'all' },
-    { label: 'Full-Stack & Web', value: 'fullstack' },
-    { label: 'AI & ML', value: 'ai' },
-    { label: 'Python & Data', value: 'python' },
-    { label: 'Power BI', value: 'powerbi' },
-  ], []);
+/* Animated decorative SVG arc ring */
+const ArcRing = ({ color, radius, strokeWidth = 2, dashOffset = 0, spin = false }) => {
+  const circumference = 2 * Math.PI * radius;
+  return (
+    <svg
+      viewBox={`0 0 ${(radius + 20) * 2} ${(radius + 20) * 2}`}
+      style={{
+        width: '100%', height: '100%',
+        animation: spin ? 'spinSlow 18s linear infinite' : undefined,
+      }}
+    >
+      <circle
+        cx={radius + 20} cy={radius + 20} r={radius}
+        fill="none"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeDasharray={`${circumference * 0.72} ${circumference * 0.28}`}
+        strokeDashoffset={dashOffset}
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+    </svg>
+  );
+};
+
+const Projects = () => {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
 
   const projects = useMemo(() => [
     {
-      title: 'Budget Buddy — Room Expense & Bill Splitter App',
-      tag: '★ PRIORITY #1',
-      description: 'Full-stack room management and expense-tracking application. Features real-time balances, equal/percentage/custom split algorithms, friend settlements, interactive expense analytics dashboard, and automated debt minimization math.',
-      tools: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS', 'Vite', 'Realtime DB'],
+      title: 'Budget Buddy',
+      subtitle: 'Room Expense & Bill Splitter App',
+      tag: '★ FULL-STACK',
+      tagColor: '#ECD06F',
+      description: 'Full-stack room management and expense-tracking app. Real-time balances, custom split algorithms, friend settlements, analytics dashboard, and automated debt minimization.',
+      tools: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS', 'Vite'],
       link: 'https://github.com/Rinshad007/room',
       liveUrl: 'http://budget-buddy4.vercel.app/',
-      cardBg: '#ECD06F',
-      highlights: ['Live Web App', 'Realtime DB', 'Debt Settlement Engine'],
-      categories: ['fullstack', 'all'],
-      rotate: '-1.5deg',
+      highlights: ['Live Web App', 'Realtime DB', 'Debt Engine'],
+      accentColor: '#ECD06F',
+      image: '/project_budget_buddy.jpg',
     },
     {
-      title: 'Sales Analytics & AI Revenue Forecasting System',
+      title: 'Sales Analytics AI',
+      subtitle: 'Revenue Forecasting System',
       tag: 'AI · ML · FastAPI',
-      description: 'Production-grade full-stack web application for uploading sales order datasets, analyzing performance metrics, generating AI-powered business insights via Google Gemini AI, and forecasting future revenue using Linear Regression models.',
-      tools: ['Python', 'FastAPI', 'React', 'Google Gemini AI', 'Scikit-Learn', 'Pandas'],
+      tagColor: '#FF9398',
+      description: 'Production-grade web app for sales dataset analysis, AI-powered business insights via Google Gemini, and Linear Regression revenue forecasting with FastAPI backend.',
+      tools: ['Python', 'FastAPI', 'React', 'Gemini AI', 'Scikit-Learn'],
       link: 'https://github.com/safvenn/SALES-ANALETCIS',
-      cardBg: '#FF9398',
-      highlights: ['Gemini AI Insights', 'Linear Regression Forecast', 'FastAPI Backend'],
-      categories: ['ai', 'python', 'fullstack'],
-      rotate: '1deg',
+      liveUrl: null,
+      highlights: ['Gemini AI Insights', 'ML Forecast', 'FastAPI'],
+      accentColor: '#FF9398',
+      image: '/project_sales_analytics.jpg',
     },
     {
-      title: 'Petrol Station Analytics — End-to-End Pipeline',
+      title: 'Petrol Station Analytics',
+      subtitle: 'End-to-End Data Pipeline',
       tag: 'Python · Power BI',
-      description: 'Complete end-to-end analytics project transforming messy petrol station datasets into business insights. Processed 150,000+ transactions covering ₹2.15B revenue and 22M+ liters. Built Operations and HR dashboards in Power BI.',
-      tools: ['Python', 'Pandas', 'NumPy', 'Power BI', 'Matplotlib', 'Seaborn'],
+      tagColor: '#49C5B6',
+      description: '150K+ transactions · ₹2.15B revenue · 22M+ liters processed. Built Operations and HR Power BI dashboards from raw petrol station datasets using Python.',
+      tools: ['Python', 'Pandas', 'NumPy', 'Power BI', 'Seaborn'],
       link: 'https://github.com/safvenn/petrol-pumb-analysis',
-      cardBg: '#49C5B6',
-      highlights: ['150K+ Transactions', '₹2.15B Revenue', '2 Power BI Dashboards'],
-      categories: ['python', 'powerbi'],
-      rotate: '-0.8deg',
+      liveUrl: null,
+      highlights: ['150K+ Transactions', '₹2.15B Revenue', '2 Dashboards'],
+      accentColor: '#49C5B6',
+      image: '/project_petrol_analytics.jpg',
     },
     {
-      title: 'Hospital Doctor Utilization & Patient Cost Analysis',
-      tag: 'Python · SQL · Analytics',
-      description: 'Integrated 4 relational datasets into a unified analytical model. Built multi-table data pipeline, cleaned healthcare datasets, and executed 10+ SQL queries to extract KPIs and cost segments.',
+      title: 'Hospital Analytics',
+      subtitle: 'Doctor Utilization & Cost Analysis',
+      tag: 'Python · SQL',
+      tagColor: '#ECD06F',
+      description: 'Integrated 4 relational datasets, built a multi-table data pipeline, and executed 10+ SQL queries to extract healthcare KPIs and patient cost segments.',
       tools: ['Python', 'Pandas', 'MySQL', 'SQLAlchemy', 'Matplotlib'],
       link: 'https://github.com/safvenn/hospital_Multi_table_analysis',
-      cardBg: '#FFF8E8',
-      highlights: ['4 Datasets Integrated', '10+ SQL Queries', '3 Cost Segments'],
-      categories: ['python'],
-      rotate: '1.2deg',
+      liveUrl: null,
+      highlights: ['4 Datasets', '10+ SQL Queries', '3 Cost Segments'],
+      accentColor: '#ECD06F',
+      image: '/project_hospital_analytics.jpg',
     },
   ], []);
 
-  const filtered = activeFilter === 'all'
-    ? projects
-    : projects.filter(p => p.categories.includes(activeFilter));
+  const total = projects.length;
+  const active = projects[activeIdx];
+
+  const goTo = useCallback((idx, dir) => {
+    setDirection(dir);
+    setActiveIdx(idx);
+  }, []);
+
+  const goPrev = useCallback(() => {
+    const idx = (activeIdx - 1 + total) % total;
+    goTo(idx, -1);
+  }, [activeIdx, total, goTo]);
+
+  const goNext = useCallback(() => {
+    const idx = (activeIdx + 1) % total;
+    goTo(idx, 1);
+  }, [activeIdx, total, goTo]);
+
+  // Playlist shows the 3 non-active projects in order
+  const playlistItems = useMemo(() =>
+    projects.map((p, i) => ({ ...p, originalIdx: i })).filter((_, i) => i !== activeIdx),
+  [projects, activeIdx]);
+
+  const slideVariants = {
+    enter: (d) => ({ opacity: 0, x: d * 40, scale: 0.97 }),
+    center: { opacity: 1, x: 0, scale: 1 },
+    exit: (d) => ({ opacity: 0, x: d * -40, scale: 0.97 }),
+  };
 
   return (
-    <section id="projects" className="section" style={{ background: '#FFF8E8', backgroundImage: 'radial-gradient(rgba(23,23,23,0.04) 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
+    <section id="projects" className="mp-section section">
       <div className="container">
-        <SectionHeader label="Portfolio" title="Featured Projects" subtitle="End-to-end projects showcasing data analysis, AI engineering, and full-stack development." />
+        <SectionHeader
+          label="Portfolio"
+          title="Featured Projects"
+          subtitle="End-to-end projects — data pipelines, AI engineering, and full-stack development."
+        />
 
-        {/* Filters */}
-        <FadeIn>
-          <div className="project-filters">
-            {filters.map(f => (
-              <button
-                key={f.value}
-                className={`project-filter-btn ${activeFilter === f.value ? 'active' : ''}`}
-                onClick={() => setActiveFilter(f.value)}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-        </FadeIn>
+        {/* ── MAIN PLAYER ─────────────────────────────────── */}
+        <motion.div
+          className="mp-player"
+          initial={{ opacity: 0, y: 60, scale: 0.92 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Decorative arc rings — fade + slight rotate in */}
+          <motion.div
+            className="mp-ring-wrap"
+            aria-hidden="true"
+            initial={{ opacity: 0, rotate: -15 }}
+            whileInView={{ opacity: 1, rotate: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 1.1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <ArcRing color="#49C5B6" radius={310} strokeWidth={2.5} dashOffset={120} spin />
+          </motion.div>
+          <motion.div
+            className="mp-ring-wrap"
+            aria-hidden="true"
+            style={{ width: '92%', animationDirection: 'reverse' }}
+            initial={{ opacity: 0, rotate: 15 }}
+            whileInView={{ opacity: 1, rotate: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 1.1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <ArcRing color="#ECD06F" radius={298} strokeWidth={1.5} dashOffset={220} spin />
+          </motion.div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-          <AnimatePresence mode="wait">
-            {filtered.map((project, idx) => (
+          {/* HALF-DISK */}
+          <div className="mp-disk">
+            {/* Track counter badge */}
+            <div className="mp-track-counter" aria-label={`Project ${activeIdx + 1} of ${total}`}>
+              {String(activeIdx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </div>
+
+            {/* Image layer */}
+            <AnimatePresence mode="wait" custom={direction}>
               <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                key={`img-${activeIdx}`}
+                className="mp-disk-image"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <TiltCard
-                  className="glass-card"
-                  style={{
-                    padding: 'clamp(1.5rem, 3vw, 2.5rem)',
-                    transform: `rotate(${project.rotate})`,
-                    background: project.cardBg,
-                  }}
-                >
-                  <div style={{ position: 'relative', zIndex: 1 }}>
-                    {/* Tag pill */}
-                    <div style={{
-                      display: 'inline-flex', alignItems: 'center',
-                      padding: '0.25rem 0.75rem',
-                      background: '#171717',
-                      color: '#ECD06F',
-                      borderRadius: '9999px',
-                      fontSize: '0.7rem', fontWeight: 700,
-                      fontFamily: 'var(--font-mono)',
-                      letterSpacing: '0.06em',
-                      marginBottom: '0.85rem',
-                    }}>
-                      {project.tag}
-                    </div>
-
-                    <h3 style={{
-                      fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
-                      fontWeight: 800, marginBottom: '0.85rem',
-                      letterSpacing: '-0.03em', lineHeight: 1.25,
-                      color: '#171717',
-                    }}>{project.title}</h3>
-
-                    <p style={{ color: '#3A3A3A', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1.25rem', maxWidth: '700px' }}>
-                      {project.description}
-                    </p>
-
-                    {/* Highlights */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
-                      {project.highlights.map((h, i) => (
-                        <span key={i} style={{
-                          padding: '0.3rem 0.8rem', borderRadius: '9999px',
-                          background: '#FFF8E8', border: '1.5px solid #171717',
-                          fontSize: '0.75rem', fontWeight: 700, color: '#171717',
-                          boxShadow: '2px 2px 0 #171717',
-                        }}>{h}</span>
-                      ))}
-                    </div>
-
-                    {/* Tech tags */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '1.5rem' }}>
-                      {project.tools.map((t, i) => (
-                        <span key={i} style={{
-                          padding: '0.25rem 0.6rem', borderRadius: '6px',
-                          background: 'rgba(23,23,23,0.1)', border: '1px solid rgba(23,23,23,0.2)',
-                          fontSize: '0.7rem', color: '#171717', fontFamily: 'var(--font-mono)',
-                          fontWeight: 600,
-                        }}>{t}</span>
-                      ))}
-                    </div>
-
-                    {/* Buttons */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem' }}>
-                      <motion.a
-                        href={project.link} target="_blank" rel="noopener noreferrer"
-                        whileHover={{ x: 2, y: 2, boxShadow: '2px 2px 0 #171717' }}
-                        whileTap={{ scale: 0.97 }}
-                        style={{
-                          display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                          padding: '0.55rem 1.25rem',
-                          background: '#171717', color: '#FFF8E8',
-                          border: '2px solid #171717', borderRadius: '9999px',
-                          fontSize: '0.8rem', fontWeight: 700,
-                          boxShadow: '4px 4px 0 rgba(23,23,23,0.3)',
-                          textDecoration: 'none',
-                          fontFamily: 'var(--font-main)',
-                          transition: 'all 0.2s',
-                        }}
-                      >
-                        <Github size={15} /> Source Code <ExternalLink size={12} />
-                      </motion.a>
-
-                      {project.liveUrl && (
-                        <motion.a
-                          href={project.liveUrl} target="_blank" rel="noopener noreferrer"
-                          whileHover={{ x: 2, y: 2, boxShadow: '2px 2px 0 #171717' }}
-                          whileTap={{ scale: 0.97 }}
-                          style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                            padding: '0.55rem 1.25rem',
-                            background: '#FFF8E8', color: '#171717',
-                            border: '2px solid #171717', borderRadius: '9999px',
-                            fontSize: '0.8rem', fontWeight: 700,
-                            boxShadow: '4px 4px 0 #171717',
-                            textDecoration: 'none',
-                            fontFamily: 'var(--font-main)',
-                            transition: 'all 0.2s',
-                          }}
-                        >
-                          <Globe size={15} /> Live Demo <ArrowRight size={13} />
-                        </motion.a>
-                      )}
-                    </div>
-                  </div>
-                </TiltCard>
+                <img src={active.image} alt={`${active.title} preview`} loading="lazy" />
               </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+            </AnimatePresence>
+
+            {/* Gradient fade */}
+            <div className="mp-disk-gradient" />
+
+            {/* Info overlay */}
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={`info-${activeIdx}`}
+                className="mp-info"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.4, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                {/* Tag */}
+                <div className="mp-tag">{active.tag}</div>
+
+                {/* Title */}
+                <h3 className="mp-title">{active.title}</h3>
+
+                {/* Description */}
+                <p className="mp-desc">{active.description}</p>
+
+                {/* Tech chips */}
+                <div className="mp-tech-row">
+                  {active.tools.map((t, i) => (
+                    <span key={i} className="mp-tech-chip">{t}</span>
+                  ))}
+                </div>
+
+                {/* CTA actions + waveform */}
+                <div className="mp-actions">
+                  <motion.a
+                    href={active.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ x: 2, y: 2, boxShadow: '2px 2px 0 #171717' }}
+                    whileTap={{ scale: 0.97 }}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                      padding: '0.5rem 1.15rem',
+                      background: '#171717', color: '#FFF8E8',
+                      border: '2px solid #171717', borderRadius: '9999px',
+                      fontSize: '0.78rem', fontWeight: 700,
+                      boxShadow: '3px 3px 0 rgba(23,23,23,0.3)',
+                      textDecoration: 'none',
+                      fontFamily: 'var(--font-main)',
+                      transition: 'all 0.2s',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    <Github size={14} /> GitHub
+                  </motion.a>
+
+                  {active.liveUrl && (
+                    <motion.a
+                      href={active.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ x: 2, y: 2, boxShadow: '2px 2px 0 #171717' }}
+                      whileTap={{ scale: 0.97 }}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                        padding: '0.5rem 1.15rem',
+                        background: active.accentColor, color: '#171717',
+                        border: '2px solid #171717', borderRadius: '9999px',
+                        fontSize: '0.78rem', fontWeight: 700,
+                        boxShadow: '3px 3px 0 #171717',
+                        textDecoration: 'none',
+                        fontFamily: 'var(--font-main)',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      <Globe size={14} /> Live Demo <ArrowRight size={12} />
+                    </motion.a>
+                  )}
+
+                  {/* Waveform bars */}
+                  <div className="mp-waveform" aria-hidden="true">
+                    {[...Array(7)].map((_, i) => (
+                      <div key={i} className="mp-wave-bar" />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* ── CONTROLS BAR — slides up after disk ─────────── */}
+          <motion.div
+            className="mp-controls"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.55, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Prev */}
+            <motion.button
+              className="mp-nav-btn"
+              onClick={goPrev}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Previous project"
+            >
+              <ChevronLeft size={15} />
+              <span>Prev</span>
+            </motion.button>
+
+            {/* Dots */}
+            <div className="mp-dots" role="tablist" aria-label="Project navigation">
+              {projects.map((_, i) => (
+                <button
+                  key={i}
+                  className={`mp-dot${i === activeIdx ? ' active' : ''}`}
+                  onClick={() => goTo(i, i > activeIdx ? 1 : -1)}
+                  role="tab"
+                  aria-selected={i === activeIdx}
+                  aria-label={`Project ${i + 1}: ${projects[i].title}`}
+                />
+              ))}
+            </div>
+
+            {/* Next */}
+            <motion.button
+              className="mp-nav-btn"
+              onClick={goNext}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Next project"
+            >
+              <span>Next</span>
+              <ChevronRight size={15} />
+            </motion.button>
+          </motion.div>
+        </motion.div>
+
+        {/* ── PLAYLIST STRIP — staggered cards ─────────────── */}
+        <motion.div
+          className="mp-playlist"
+          role="list"
+          aria-label="All projects"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }}
+        >
+          {playlistItems.map((proj, i) => (
+            <motion.div
+              key={proj.originalIdx}
+              className={`mp-playlist-card${proj.originalIdx === activeIdx ? ' active' : ''}`}
+              onClick={() => goTo(proj.originalIdx, proj.originalIdx > activeIdx ? 1 : -1)}
+              variants={staggerItem}
+              whileHover={{ y: -4, boxShadow: '5px 5px 0 #171717' }}
+              whileTap={{ scale: 0.98 }}
+              role="listitem"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') goTo(proj.originalIdx, proj.originalIdx > activeIdx ? 1 : -1); }}
+              aria-label={`Select project: ${proj.title}`}
+            >
+              {/* Accent strip */}
+              <div
+                className="mp-playlist-accent"
+                style={{ background: proj.accentColor }}
+              />
+              <div className="mp-playlist-num">
+                {String(proj.originalIdx + 1).padStart(2, '0')}
+              </div>
+              <div className="mp-playlist-title">{proj.title}</div>
+              <div className="mp-playlist-tag">{proj.tag}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
