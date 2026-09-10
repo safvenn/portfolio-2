@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import Resume from './components/Resume';
 import DigitalIdCard from './components/DigitalIdCard';
+import WhatIBuild from './components/WhatIBuild';
 
 /* =============================================
    SMOOTH FADE-IN WRAPPER
@@ -888,50 +889,7 @@ const About = () => {
     offset: ['start start', 'end end'],
   });
 
-  const capabilities = useMemo(() => [
-    {
-      icon: <BrainCircuit size={22} />,
-      title: 'AI-Powered Applications',
-      tag: 'GenAI & LLMs',
-      desc: 'Building intelligent applications with LLM integration, prompt engineering, agentic tools, and contextual intelligence.',
-      bg: '#ECD06F',
-    },
-    {
-      icon: <Cpu size={22} />,
-      title: 'Machine-Learning Systems',
-      tag: 'Scikit-learn / PyTorch',
-      desc: 'End-to-end predictive modeling, feature engineering, classification, regression, and model evaluation pipelines.',
-      bg: '#FF9398',
-    },
-    {
-      icon: <Database size={22} />,
-      title: 'Data Pipelines & ETL',
-      tag: 'SQL & Data Modeling',
-      desc: 'Automating multi-table data modeling, complex analytical queries, cleaning dirty data, and building ingestion flows.',
-      bg: '#49C5B6',
-    },
-    {
-      icon: <Layers size={22} />,
-      title: 'Generative AI & RAG',
-      tag: 'Vector DBs & Retrieval',
-      desc: 'Retrieval-Augmented Generation workflows, semantic vector search, document indexing, and hallucination guardrails.',
-      bg: '#ECD06F',
-    },
-    {
-      icon: <Zap size={22} />,
-      title: 'FastAPI Backend Engineering',
-      tag: 'Async REST APIs',
-      desc: 'High-performance asynchronous backend services, authentication, structured Pydantic schemas, and database migrations.',
-      bg: '#FF9398',
-    },
-    {
-      icon: <Target size={22} />,
-      title: 'Intelligent Automation',
-      tag: 'Analytics & Reporting',
-      desc: 'Automated data scraping, scheduled analysis tasks, interactive dashboards (Power BI / Excel), and business reporting.',
-      bg: '#49C5B6',
-    },
-  ], []);
+
 
   return (
     <section id="about" className="about-id-section" style={{ position: 'relative' }}>
@@ -991,153 +949,6 @@ const About = () => {
           {/* Centered 3D Digital ID Card */}
           <DigitalIdCard scrollProgress={scrollYProgress} />
         </div>
-      </div>
-
-      {/* 2. POST-FLIP: "WHAT I BUILD" CAPABILITIES SHOWCASE */}
-      <div className="container" style={{ paddingBottom: '6rem', position: 'relative', zIndex: 15 }}>
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <div className="section-label" style={{ transform: 'rotate(-1deg)', display: 'inline-flex', background: '#ECD06F' }}>
-            Capabilities
-          </div>
-
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2rem, 4.5vw, 3.2rem)',
-            fontWeight: 800,
-            letterSpacing: '-0.03em',
-            color: '#171717',
-            marginBottom: '0.75rem',
-          }}>
-            What I Build
-          </h2>
-          <p style={{
-            fontFamily: 'var(--font-main)',
-            fontSize: '1rem',
-            color: '#3A3A3A',
-            maxWidth: '580px',
-            margin: '0 auto',
-            lineHeight: 1.7,
-          }}>
-            Specialized engineering capabilities across Machine Learning, Generative AI, high-concurrency backends, and data intelligence.
-          </p>
-        </div>
-
-        {/* 6 Capabilities Cards Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '1.5rem',
-          marginBottom: '3.5rem',
-        }}>
-          {capabilities.map((cap, i) => (
-            <FadeIn key={cap.title} delay={i * 0.08}>
-              <motion.div
-                whileHover={{ y: -4, x: -2, boxShadow: '6px 6px 0 #171717' }}
-                style={{
-                  background: '#FFF8E8',
-                  border: '2px solid #171717',
-                  borderRadius: '20px',
-                  padding: '1.75rem',
-                  boxShadow: '4px 4px 0 #171717',
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  transition: 'box-shadow 0.25s ease, transform 0.25s ease',
-                }}
-              >
-                <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginBottom: '1.25rem',
-                  }}>
-                    <div style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: '12px',
-                      background: i % 3 === 0 ? '#ECD06F' : i % 3 === 1 ? '#49C5B6' : '#FF9398',
-                      border: '2px solid #171717',
-                      boxShadow: '2px 2px 0 #171717',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#171717',
-                    }}>
-                      {cap.icon}
-                    </div>
-
-                    <span style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.68rem',
-                      fontWeight: 700,
-                      padding: '0.22rem 0.65rem',
-                      borderRadius: '9999px',
-                      background: '#171717',
-                      color: '#ECD06F',
-                      letterSpacing: '0.04em',
-                    }}>
-                      {cap.tag}
-                    </span>
-                  </div>
-
-                  <h3 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.2rem',
-                    fontWeight: 800,
-                    letterSpacing: '-0.02em',
-                    color: '#171717',
-                    marginBottom: '0.6rem',
-                  }}>
-                    {cap.title}
-                  </h3>
-
-                  <p style={{
-                    fontFamily: 'var(--font-main)',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.7,
-                    color: '#3A3A3A',
-                  }}>
-                    {cap.desc}
-                  </p>
-                </div>
-              </motion.div>
-            </FadeIn>
-          ))}
-        </div>
-
-        {/* Animated Metrics Strip */}
-        <FadeIn delay={0.2}>
-          <div className="stats-row" style={{ maxWidth: '800px', margin: '0 auto' }}>
-            {[
-              { number: '4', suffix: '+', label: 'Projects Shipped', icon: <Layers size={18} /> },
-              { number: '10', suffix: '+', label: 'Tech Tools Mastered', icon: <Code2 size={18} /> },
-              { number: '5', suffix: '', label: 'Industry Certifications', icon: <Award size={18} /> },
-              { number: '3', suffix: '+', label: 'Internships Completed', icon: <Calendar size={18} /> },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                className="stat-item"
-                style={{
-                  background: '#FFF8E8',
-                  border: '2px solid #171717',
-                  boxShadow: '4px 4px 0 #171717',
-                  color: '#171717',
-                }}
-                whileHover={{ y: -3, boxShadow: '6px 6px 0 #171717' }}
-              >
-                <div style={{ color: '#171717', marginBottom: '0.4rem', display: 'flex', justifyContent: 'center' }}>
-                  {stat.icon}
-                </div>
-                <div className="stat-number" style={{ color: '#171717' }}>
-                  <AnimatedCounter value={stat.number} suffix={stat.suffix} />
-                </div>
-                <div className="stat-label" style={{ color: '#3A3A3A' }}>{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </FadeIn>
       </div>
     </section>
   );
@@ -2041,6 +1852,7 @@ const App = () => {
             <main>
               <Hero />
               <About />
+              <WhatIBuild />
               <ToolsMarquee />
               <Projects />
               <Experience />
