@@ -13,9 +13,9 @@
  * All colors come from the existing CSS custom properties.
  */
 
-import React, { useRef } from "react";
+import React from "react";
 import {
-  motion,
+  motion as Motion,
   useScroll,
   useTransform,
   useReducedMotion,
@@ -28,10 +28,10 @@ import { ArrowRight } from "lucide-react";
 const CARDS = [
   {
     index: "01",
-    heading: "Data dashboards\nthat ship fast",
-    body: "I build product interfaces around real data � sales analytics, expense trackers, petrol station pipelines. The emphasis is always on something a person can open on day one and immediately read.",
-    cta: "View analytics project",
-    ctaHref: "https://github.com/safvenn/SALES-ANALETCIS",
+    heading: "Data\nScience",
+    body: "EDA, feature engineering, predictive modeling, and clear notebooks that turn messy datasets into decisions. I focus on practical models, readable analysis, and business context.",
+    cta: "View data science work",
+    ctaHref: "https://github.com/safvenn",
     bg: "#ECD06F",
     textColor: "#171717",
     borderColor: "#171717",
@@ -43,32 +43,32 @@ const CARDS = [
   },
   {
     index: "02",
-    heading: "Interaction\nthat feels alive",
-    body: "This section is built exactly the way I build motion: scroll-driven, entering with a hint of rotation, settling into place. I use Framer Motion to add weight and intention � not decoration.",
-    cta: "View Bikespot project",
+    heading: "Intelligent\nautomation",
+    body: "n8n workflows, scheduled Python scrapers, auto-generated Power BI reports. I replace repetitive manual tasks with reliable pipelines that run at 09:00 every morning without anyone pressing a button.",
+    cta: "View automation work",
     ctaHref: "https://github.com/safvenn",
     bg: "#FF9398",
     textColor: "#171717",
     borderColor: "#171717",
     shadowColor: "#171717",
     images: [
-      { src: "/wib-card2-motion.jpg",    alt: "Scroll-driven animation design"  },
-      { src: "/wib-card2-micro.jpg",     alt: "Mobile micro-interactions"       },
+      { src: "/wib-card6-n8n.jpg",    alt: "n8n workflow automation canvas"           },
+      { src: "/wib-card6-report.jpg", alt: "Auto-generated analytics report dashboard" },
     ],
   },
   {
     index: "03",
-    heading: "Full sites &\nlanding pages",
-    body: "Portfolio sites, campaign pages, multi-section landing pages. I start with the type scale and motion system before touching layout, so the design holds together at every breakpoint.",
-    cta: "View trip project",
-    ctaHref: "https://github.com/safvenn",
+    heading: "Generative AI\n& LLM apps",
+    body: "Prompt engineering, RAG pipelines, vector search, hallucination guardrails. I connect Gemini and OpenAI models to real data sources and wrap them in production-ready APIs - not just chat demos.",
+    cta: "View AI analytics project",
+    ctaHref: "https://github.com/safvenn/SALES-ANALETCIS",
     bg: "#49C5B6",
     textColor: "#171717",
     borderColor: "#171717",
     shadowColor: "#171717",
     images: [
-      { src: "/wib-card3-landing.jpg",   alt: "SaaS marketing landing page"     },
-      { src: "/wib-card3-portfolio.jpg", alt: "Neobrutalist portfolio site"      },
+      { src: "/wib-card5-ai.jpg",  alt: "Generative AI chat interface with sales analysis" },
+      { src: "/wib-card5-rag.jpg", alt: "RAG pipeline architecture diagram"                },
     ],
   },
   {
@@ -88,32 +88,17 @@ const CARDS = [
   },
   {
     index: "05",
-    heading: "Generative AI\n& LLM apps",
-    body: "Prompt engineering, RAG pipelines, vector search, hallucination guardrails. I connect Gemini and OpenAI models to real data sources and wrap them in production-ready APIs - not just chat demos.",
-    cta: "View AI analytics project",
+    heading: "Data dashboards\nthat ship fast",
+    body: "I build product interfaces around real data - sales analytics, expense trackers, petrol station pipelines. The emphasis is always on something a person can open on day one and immediately read.",
+    cta: "View analytics project",
     ctaHref: "https://github.com/safvenn/SALES-ANALETCIS",
     bg: "#ECD06F",
     textColor: "#171717",
     borderColor: "#171717",
     shadowColor: "#171717",
     images: [
-      { src: "/wib-card5-ai.jpg",  alt: "Generative AI chat interface with sales analysis" },
-      { src: "/wib-card5-rag.jpg", alt: "RAG pipeline architecture diagram"                },
-    ],
-  },
-  {
-    index: "06",
-    heading: "Intelligent\nautomation",
-    body: "n8n workflows, scheduled Python scrapers, auto-generated Power BI reports. I replace repetitive manual tasks with reliable pipelines that run at 09:00 every morning without anyone pressing a button.",
-    cta: "View automation work",
-    ctaHref: "https://github.com/safvenn",
-    bg: "#FF9398",
-    textColor: "#171717",
-    borderColor: "#171717",
-    shadowColor: "#171717",
-    images: [
-      { src: "/wib-card6-n8n.jpg",    alt: "n8n workflow automation canvas"           },
-      { src: "/wib-card6-report.jpg", alt: "Auto-generated analytics report dashboard" },
+      { src: "/wib-card1-dashboard.jpg", alt: "Sales analytics dashboard UI" },
+      { src: "/wib-card1-expense.jpg",   alt: "Expense tracker app UI"         },
     ],
   },
 ];
@@ -420,7 +405,7 @@ function AnimatedCard({ card, index, totalCards, isMobile, reduceMotion }) {
   if (isMobile || reduceMotion) {
     return (
       <div className="wib-sticky" style={{ top: stickyTop }}>
-        <motion.div
+        <Motion.div
           className="wib-card"
           initial={reduceMotion ? false : { opacity: 0, y: 28 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -437,7 +422,7 @@ function AnimatedCard({ card, index, totalCards, isMobile, reduceMotion }) {
           }}
         >
           <CardContent card={card} />
-        </motion.div>
+        </Motion.div>
       </div>
     );
   }
@@ -448,7 +433,7 @@ function AnimatedCard({ card, index, totalCards, isMobile, reduceMotion }) {
       className="wib-sticky"
       style={{ top: stickyTop, height: cardHeight }}
     >
-      <motion.div
+      <Motion.div
         className="wib-card"
         style={{
           background:     card.bg,
@@ -461,7 +446,7 @@ function AnimatedCard({ card, index, totalCards, isMobile, reduceMotion }) {
         }}
       >
         <CardContent card={card} />
-      </motion.div>
+      </Motion.div>
     </div>
   );
 }
@@ -472,7 +457,7 @@ function AnimatedCard({ card, index, totalCards, isMobile, reduceMotion }) {
 function WibHeader() {
   return (
     <div className="wib-header">
-      <motion.div
+      <Motion.div
         className="wib-label"
         initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -480,9 +465,9 @@ function WibHeader() {
         transition={{ duration: 0.45 }}
       >
         How I Work
-      </motion.div>
+      </Motion.div>
 
-      <motion.h2
+      <Motion.h2
         id="wib-heading"
         className="wib-h2"
         initial={{ opacity: 0, y: 20 }}
@@ -491,17 +476,17 @@ function WibHeader() {
         transition={{ duration: 0.55, delay: 0.1 }}
       >
         What I Build
-      </motion.h2>
+      </Motion.h2>
 
-      <motion.p
+      <Motion.p
         className="wib-subhead"
         initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.45, delay: 0.2 }}
       >
-        Four ways I actually work � scroll through to see each one settle into place.
-      </motion.p>
+        Five ways I actually work - scroll through to see each one settle into place.
+      </Motion.p>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { motion, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { motion as Motion, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import {
   Sparkles, CheckCircle2, ShieldCheck, QrCode, Cpu,
   ExternalLink, GraduationCap, BrainCircuit, Database,
@@ -205,7 +205,7 @@ export default function DigitalIdCard({ scrollProgress }) {
       }}
     >
       {/* 3D Scene Wrapper with Mouse Parallax Tilt */}
-      <motion.div
+      <Motion.div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
@@ -224,7 +224,7 @@ export default function DigitalIdCard({ scrollProgress }) {
         whileTap={{ scale: 0.985 }}
       >
         {/* Flip Container (Synchronized with scroll progress) */}
-        <motion.div
+        <Motion.div
           style={{
             width: '100%',
             height: '100%',
@@ -873,7 +873,7 @@ export default function DigitalIdCard({ scrollProgress }) {
                   {[
                     'Python', 'FastAPI', 'SQL', 'PostgreSQL', 'MongoDB',
                     'Pandas', 'NumPy', 'Scikit-learn', 'LangChain', 'RAG',
-                    'LLMs', 'Flutter', 'React'
+                    'LLMs', 'React'
                   ].map((tech, i) => (
                     <span
                       key={i}
@@ -947,11 +947,11 @@ export default function DigitalIdCard({ scrollProgress }) {
               </div>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </Motion.div>
+      </Motion.div>
 
       {/* Interactive Helper Button (Matching Site Neo-Brutal Primary Buttons) */}
-      <motion.button
+      <Motion.button
         onClick={toggleManualFlip}
         whileHover={{ scale: 1.04, y: -2, boxShadow: '5px 5px 0 #171717' }}
         whileTap={{ scale: 0.96, boxShadow: '2px 2px 0 #171717' }}
@@ -976,7 +976,7 @@ export default function DigitalIdCard({ scrollProgress }) {
       >
         <RefreshCw size={13} style={{ transform: effectiveRotateY > 90 ? 'rotate(180deg)' : 'none', transition: 'transform 0.4s ease' }} />
         <span>{effectiveRotateY > 90 ? 'Flip to Front (Portrait)' : 'Flip to Back (Credentials)'}</span>
-      </motion.button>
+      </Motion.button>
     </div>
   );
 }
